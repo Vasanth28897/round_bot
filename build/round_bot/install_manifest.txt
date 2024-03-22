@@ -1,0 +1,15 @@
+/home/pc/round_bot_ws/src/round_bot/install/round_bot/share/ament_index/resource_index/package_run_dependencies/round_bot
+/home/pc/round_bot_ws/src/round_bot/install/round_bot/share/ament_index/resource_index/parent_prefix_path/round_bot
+/home/pc/round_bot_ws/src/round_bot/install/round_bot/share/round_bot/environment/ament_prefix_path.sh
+/home/pc/round_bot_ws/src/round_bot/install/round_bot/share/round_bot/environment/ament_prefix_path.dsv
+/home/pc/round_bot_ws/src/round_bot/install/round_bot/share/round_bot/environment/path.sh
+/home/pc/round_bot_ws/src/round_bot/install/round_bot/share/round_bot/environment/path.dsv
+/home/pc/round_bot_ws/src/round_bot/install/round_bot/share/round_bot/local_setup.bash
+/home/pc/round_bot_ws/src/round_bot/install/round_bot/share/round_bot/local_setup.sh
+/home/pc/round_bot_ws/src/round_bot/install/round_bot/share/round_bot/local_setup.zsh
+/home/pc/round_bot_ws/src/round_bot/install/round_bot/share/round_bot/local_setup.dsv
+/home/pc/round_bot_ws/src/round_bot/install/round_bot/share/round_bot/package.dsv
+/home/pc/round_bot_ws/src/round_bot/install/round_bot/share/ament_index/resource_index/packages/round_bot
+/home/pc/round_bot_ws/src/round_bot/install/round_bot/share/round_bot/cmake/round_botConfig.cmake
+/home/pc/round_bot_ws/src/round_bot/install/round_bot/share/round_bot/cmake/round_botConfig-version.cmake
+/home/pc/round_bot_ws/src/round_bot/install/round_bot/share/round_bot/package.xml
