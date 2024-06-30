@@ -5,21 +5,6 @@ if(CMAKE_COMPILER_IS_GNUCXX OR CMAKE_CXX_COMPILER_ID MATCHES "Clang")
   add_compile_options(-Wall -Wextra -Wpedantic)
 endif()
 
-install(
-  DIRECTORY launch
-  DESTINATION share/${PROJECT_NAME}
-)
-
-install(
-  DIRECTORY description
-  DESTINATION share/${PROJECT_NAME}
-)
-
-install(
-  DIRECTORY rviz
-  DESTINATION share/${PROJECT_NAME}
-)
-
 # find dependencies
 find_package(ament_cmake REQUIRED)
 # uncomment the following section in order to fill in
@@ -38,8 +23,15 @@ if(BUILD_TESTING)
   ament_lint_auto_find_test_dependencies()
 endif()
 
-# install(DIRECTORY launch/
-# DESTINATION share/${PROJECT_NAME})
+install(
+  DIRECTORY 
+    launch 
+    description 
+    rviz 
+    config
+  DESTINATION 
+    share/${PROJECT_NAME}
+)
 
 ament_package()
 
