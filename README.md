@@ -7,4 +7,4 @@ Deployed
 
 to be solved
 ------------
-* odometry met some problems with wheel links and caster_wheel links transforms to odom link
+* robot is moving sideways, but it intends to move forward and backward.
