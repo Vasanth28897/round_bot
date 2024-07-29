@@ -12,20 +12,19 @@ from ament_index_python.packages import get_package_share_directory
 
 def generate_launch_description():
   package_name = 'round_bot'
-  use_sim_time = True
   pkg_share = get_package_share_directory(package_name)
 
   xacro_file_path = os.path.join(pkg_share, 'description', 'round_bot.urdf.xacro')
-  controller_params_file = os.path.join(get_package_share_directory(package_name),'config','control.yaml')
+  controller_params_file = os.path.join(pkg_share,'config','control.yaml')
   robot_description = Command(['xacro ', xacro_file_path])
   
-  params = {'robot_description': robot_description}
   rviz_node = Node(
     package='rviz2',
     executable='rviz2',
     name='rviz2',
     arguments=['-d', os.path.join(pkg_share, 'rviz', 'visualize.rviz')],
-    output='screen'
+    output='screen',
+    parameters=[{'use_sim_time': True}]
   )
 
   robot_state_publisher = Node(
@@ -33,7 +32,7 @@ def generate_launch_description():
     executable='robot_state_publisher',
     name='robot_state_publisher',
     output='both',
-    parameters=[params],
+    parameters=[{'robot_description': robot_description, 'use_sim_time': True}],
   )
 
   joint_state_publisher = Node(
@@ -41,16 +40,16 @@ def generate_launch_description():
     executable='joint_state_publisher',
     name='joint_state_publisher',
     output='both',
-    parameters=[{'robot_description': robot_description}],
+    parameters=[{'robot_description': robot_description, 'use_sim_time': True}],
   )
 
-  joint_state_publisher_gui = Node(
-    package='joint_state_publisher_gui',
-    executable='joint_state_publisher_gui',
-    name='joint_state_publisher_gui',
-    output='both',
-    parameters=[{'robot_description': robot_description}, {'use_sim_time': use_sim_time}],
-  )
+  # joint_state_publisher_gui = Node(
+  #   package='joint_state_publisher_gui',
+  #   executable='joint_state_publisher_gui',
+  #   name='joint_state_publisher_gui',
+  #   output='both',
+  #   parameters=[{'robot_description': robot_description}, {'use_sim_time': 'true'}],
+  # )
 
   controller_manager = Node(
     package="controller_manager",
@@ -61,14 +60,14 @@ def generate_launch_description():
 
   delayed_controller_manager = TimerAction(
     period = 10.0,
-    actions=[controller_manager]
+    actions=[controller_manager],
   )
 
   diff_drive_controller = Node(
     package='controller_manager',
     executable='spawner',
     output='screen',
-    arguments = ['diff_drive_base_controller', "--controller-manager", "/controller_manager"],
+    arguments = ['diff_drive_base_controller'],
   )
 
   # delayed_diff_drive_controller = TimerAction(
@@ -86,7 +85,7 @@ def generate_launch_description():
   joint_state_broadcaster = Node(
     package='controller_manager',
     executable='spawner',
-    arguments=['joint_state_broadcaster', "--controller-manager", "/controller_manager"],
+    arguments=['joint_state_broadcaster'],
   )
 
 
@@ -100,19 +99,18 @@ def generate_launch_description():
     executable= 'spawn_entity.py',
     name = 'urdf_spawner',
     output = 'screen',
-    arguments = ['-topic', '/robot_description', '-entity', 'round_bot']
+    arguments = ['-topic', '/robot_description', '-entity', 'round_bot'],
+    parameters=[{'use_sim_time': True}],
   )
 
   return LaunchDescription([
     rviz_node,
     robot_state_publisher,
     joint_state_publisher,
-    joint_state_publisher_gui,
-    delayed_controller_manager,
-    diff_drive_controller,
-    joint_state_broadcaster,
-    #delayed_diff_drive_controller_handler,
-    #delayed_joint_state_broadcaster_handler,
+    #joint_state_publisher_gui,
     gazebo,
     spawn_entity
   ])
+
+
+
