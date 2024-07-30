@@ -1,13 +1,9 @@
 import os
 import xacro
 from launch import LaunchDescription
-from launch.substitutions import LaunchConfiguration, Command
-from launch.actions import IncludeLaunchDescription, TimerAction
-from launch.launch_description_sources import PythonLaunchDescriptionSource
+from launch.substitutions import Command
 from launch_ros.actions import Node
 from launch.actions import ExecuteProcess
-from launch.actions import RegisterEventHandler
-from launch.event_handlers import OnProcessStart
 from ament_index_python.packages import get_package_share_directory
 
 def generate_launch_description():
@@ -15,7 +11,7 @@ def generate_launch_description():
   pkg_share = get_package_share_directory(package_name)
 
   xacro_file_path = os.path.join(pkg_share, 'description', 'round_bot.urdf.xacro')
-  controller_params_file = os.path.join(pkg_share,'config','control.yaml')
+#  controller_params_file = os.path.join(pkg_share,'config','control.yaml')
   robot_description = Command(['xacro ', xacro_file_path])
   
   rviz_node = Node(
@@ -51,24 +47,24 @@ def generate_launch_description():
   #   parameters=[{'robot_description': robot_description}, {'use_sim_time': 'true'}],
   # )
 
-  controller_manager = Node(
-    package="controller_manager",
-    executable="ros2_control_node",
-    parameters=[controller_params_file],
-    output='both',
-  )
+  # controller_manager = Node(
+  #   package="controller_manager",
+  #   executable="ros2_control_node",
+  #   parameters=[controller_params_file],
+  #   output='both',
+  # )
 
-  delayed_controller_manager = TimerAction(
-    period = 10.0,
-    actions=[controller_manager],
-  )
+  # delayed_controller_manager = TimerAction(
+  #   period = 10.0,
+  #   actions=[controller_manager],
+  # )
 
-  diff_drive_controller = Node(
-    package='controller_manager',
-    executable='spawner',
-    output='screen',
-    arguments = ['diff_drive_base_controller'],
-  )
+  # diff_drive_controller = Node(
+  #   package='controller_manager',
+  #   executable='spawner',
+  #   output='screen',
+  #   arguments = ['diff_drive_base_controller'],
+  # )
 
   # delayed_diff_drive_controller = TimerAction(
   #   period=10.0,
@@ -82,11 +78,11 @@ def generate_launch_description():
   #   )
   # ) #//same applies for joint_state_broadcaster and joint_state_publisher if contoller_manager is not delayed
 
-  joint_state_broadcaster = Node(
-    package='controller_manager',
-    executable='spawner',
-    arguments=['joint_state_broadcaster'],
-  )
+  # joint_state_broadcaster = Node(
+  #   package='controller_manager',
+  #   executable='spawner',
+  #   arguments=['joint_state_broadcaster'],
+  # )
 
 
   gazebo = ExecuteProcess(

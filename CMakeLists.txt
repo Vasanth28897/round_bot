@@ -29,6 +29,7 @@ install(
     description 
     rviz 
     config
+    mesh
   DESTINATION 
     share/${PROJECT_NAME}
 )
