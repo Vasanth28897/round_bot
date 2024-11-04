@@ -1,5 +1,4 @@
 import os
-import xacro
 from launch import LaunchDescription
 from launch.substitutions import Command
 from launch_ros.actions import Node
@@ -11,7 +10,8 @@ def generate_launch_description():
   pkg_share = get_package_share_directory(package_name)
 
   xacro_file_path = os.path.join(pkg_share, 'description', 'round_bot.urdf.xacro')
-#  controller_params_file = os.path.join(pkg_share,'config','control.yaml')
+  world_file = os.path.join(pkg_share, "worlds", "office_floor_plan.world")
+  #controller_params_file = os.path.join(pkg_share,'config','control.yaml')
   robot_description = Command(['xacro ', xacro_file_path])
   
   rviz_node = Node(
@@ -47,47 +47,8 @@ def generate_launch_description():
   #   parameters=[{'robot_description': robot_description}, {'use_sim_time': 'true'}],
   # )
 
-  # controller_manager = Node(
-  #   package="controller_manager",
-  #   executable="ros2_control_node",
-  #   parameters=[controller_params_file],
-  #   output='both',
-  # )
-
-  # delayed_controller_manager = TimerAction(
-  #   period = 10.0,
-  #   actions=[controller_manager],
-  # )
-
-  # diff_drive_controller = Node(
-  #   package='controller_manager',
-  #   executable='spawner',
-  #   output='screen',
-  #   arguments = ['diff_drive_base_controller'],
-  # )
-
-  # delayed_diff_drive_controller = TimerAction(
-  #   period=10.0,
-  #   actions=[diff_drive_controller]
-  # )
-
-  # delayed_diff_drive_controller_handler = RegisterEventHandler(
-  #   event_handler=OnProcessStart(
-  #       target_action=controller_manager,
-  #       on_start=[delayed_diff_drive_controller],
-  #   )
-  # ) #//same applies for joint_state_broadcaster and joint_state_publisher if contoller_manager is not delayed
-
-  # joint_state_broadcaster = Node(
-  #   package='controller_manager',
-  #   executable='spawner',
-  #   arguments=['joint_state_broadcaster'],
-  # )
-
-
   gazebo = ExecuteProcess(
-    cmd=['gazebo', '--verbose', '-s', 'libgazebo_ros_factory.so'], #os.path.join(pkg_share, 'worlds', 'your_world_file.world')],
-    output='screen'
+    cmd=['gazebo', '--verbose', world_file,  '-s', 'libgazebo_ros_factory.so'] #os.path.join(pkg_share, 'worlds', 'your_world_file.world')],
   )
 
   spawn_entity = Node(

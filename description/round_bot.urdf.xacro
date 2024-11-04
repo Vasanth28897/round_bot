@@ -3,9 +3,7 @@
 
 <xacro:include filename="$(find round_bot)/description/inertial_xacros.xacro"/>
 
-  <link name="base_link">
-      
-  </link>
+  <link name="base_link"/> 
   
   <joint name="chassis_joint" type="fixed">
     <parent link="base_link"/>
@@ -17,7 +15,6 @@
     <visual>
       <origin xyz="0.0 0.0 0.12" rpy="0.0 0.0 0.0"/>
       <geometry>
-        <!-- <cylinder radius="0.35" length="0.1"/> -->
         <cylinder radius="${chassis_radius}" length="${chassis_length}"/>
       </geometry>
       <material name ="Orange">
@@ -27,10 +24,9 @@
     <collision>
       <origin xyz="0.0 0.0 0.12" rpy="0.0 0.0 0.0"/>
       <geometry>
-          <!-- <sphere radius="0.0"/> -->
-          <cylinder radius="${chassis_radius}" length="${chassis_length}"/>
-          <!-- <contact_coefficients mu = "1" kp = "1e+13" kd = "1.0"/> -->
+        <cylinder radius="${chassis_radius}" length="${chassis_length}"/>
       </geometry>
+      <contact_coefficients mu1 = "1" mu2 = "1" kp = "1e+13.0" kd = "1.0"/>
     </collision>
     <xacro:inertial_chassis_cylinder chassis_mass="${chassis_mass}" chassis_length="${chassis_length}" chassis_radius="${chassis_radius}">
       <origin xyz="0 0 0.12" rpy="0 0 0"/>
@@ -61,8 +57,8 @@
     <collision>
       <geometry>
         <sphere radius="${wheel_radius}"/>
-        <contact_coefficients mu = "1" kp = "1e+13" kd = "1.0"/>
       </geometry>
+      <contact_coefficients mu1 = "0" kp = "1000.0" kd = "1.0"/>
     </collision>
     <xacro:inertial_wheel_cylinder wheel_mass="${wheel_mass}" wheel_length="${wheel_length}" wheel_radius="${wheel_radius}">
       <origin xyz="0 0 0" rpy="0 0 0"/>
@@ -70,12 +66,6 @@
   </link>
 
   <gazebo reference = "left_wheel">
-      <mu1 value="50"/>
-      <mu2 value="50"/>
-      <kp value="1000000.0" />
-      <kd value="100.0" />
-      <slip1 value="0.5" />
-      <slip2 value="0.5" />
     <material>Gazebo/Red</material>
   </gazebo> 
 
@@ -99,8 +89,8 @@
     <collision>
       <geometry>
         <sphere radius="${wheel_radius}"/>
-        <contact_coefficients mu = "1" kp = "1e+13" kd = "1.0"/>
       </geometry>
+      <contact_coefficients mu = "0" kp = "1000.0" kd = "1.0"/>
     </collision>
     <xacro:inertial_wheel_cylinder wheel_mass="${wheel_mass}" wheel_length="${wheel_length}" wheel_radius="${wheel_radius}">
       <origin xyz="0 0 0" rpy="0 0 0"/>
@@ -108,19 +98,15 @@
   </link>
 
   <gazebo reference = "right_wheel">
-      <mu1 value="100"/>
-      <mu2 value="100"/>
-      <kp value="1000000.0" />
-      <kd value="100.0" />
-      <slip1 value="0.5" />
-      <slip2 value="0.5" />
+    <slip1 value="0.5" />
+    <slip2 value="0.5" />
     <material>Gazebo/Red</material>
   </gazebo> 
 
   <joint name="front_caster_joint" type="fixed">
     <parent link="chassis"/>
     <child link="front_caster_link"/>
-    <origin xyz="0.25 0.0 0.04" rpy="0 0 0"/>
+    <origin xyz="0.25 0.0 0.0465" rpy="0 0 0"/>
     <mu1 value="0.001"/>
     <mu2 value="0.001"/>
   </joint>
@@ -139,6 +125,7 @@
       <geometry>
         <sphere radius="${caster_radius}"/>
       </geometry>
+      <contact_coefficients mu="0" kp="1000.0" kd="1.0"/>
     </collision>
 
     <xacro:inertial_sphere caster_mass="${caster_mass}" caster_radius="${caster_radius}">
@@ -153,7 +140,7 @@
   <joint name="back_caster_joint" type="fixed">
     <parent link="chassis"/>
     <child link="back_caster_link"/>
-    <origin xyz="-0.25 0.0 0.04" rpy="0 0 0"/>
+    <origin xyz="-0.25 0.0 0.0465" rpy="0 0 0"/>
     <mu1 value="0.001"/>
     <mu2 value="0.001"/>
   </joint>
@@ -172,6 +159,7 @@
       <geometry>
         <sphere radius="${caster_radius}"/>
       </geometry>
+      <contact_coefficients mu="0" kp="1000.0" kd="1.0"/>
     </collision>
 
     <xacro:inertial_sphere caster_mass="${caster_mass}" caster_radius="${caster_radius}">
@@ -350,6 +338,7 @@
     </actuator>
   </transmission>
 
+
   <gazebo>
     <plugin name='diff_drive' filename='libgazebo_ros_diff_drive.so'>
       <update_rate>50</update_rate>
@@ -366,6 +355,6 @@
       <odometry_frame>odom</odometry_frame>
       <robot_base_frame>base_link</robot_base_frame>
     </plugin>
-  </gazebo>
+  </gazebo> 
     
 </robot>

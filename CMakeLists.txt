@@ -30,6 +30,7 @@ install(
     rviz 
     config
     mesh
+    worlds
   DESTINATION 
     share/${PROJECT_NAME}
 )
