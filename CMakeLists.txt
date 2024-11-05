@@ -31,6 +31,7 @@ install(
     config
     mesh
     worlds
+    maps
   DESTINATION 
     share/${PROJECT_NAME}
 )

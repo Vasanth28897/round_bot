@@ -1,12 +1,13 @@
 <?xml version="1.0"?>
 <robot xmlns:xacro="http://www.ros.org/wiki/xacro" name="round_bot">
 
-<xacro:include filename="$(find round_bot)/description/inertial_xacros.xacro"/>
-
-  <link name="base_link"/> 
+  <xacro:include filename="$(find round_bot)/description/inertial_xacros.xacro"/>
+  <!-- <xacro:include filename="$(find round_bot)/description/ros2_control.xacro"/> -->
+  
+  <link name="base_footprint"/> 
   
   <joint name="chassis_joint" type="fixed">
-    <parent link="base_link"/>
+    <parent link="base_footprint"/>
     <child link="chassis"/>
     <origin xyz="0.0 0.0 0.0" rpy="0.0 0.0 0.0"/>
   </joint>
@@ -41,7 +42,7 @@
     <parent link="chassis"/>
     <child link="left_wheel"/>
     <axis xyz="0 0 1.0"/>
-    <origin xyz="0.0 0.25 0.075" rpy="-1.57 0.0 0.0"/>
+    <origin xyz="0.0 0.18 0.075" rpy="-1.57 0.0 0.0"/>
   </joint>
 
   <link name="left_wheel">
@@ -73,7 +74,7 @@
     <parent link="chassis"/>
     <child link="right_wheel"/>
     <axis xyz="0.0 0.0 1.0"/>
-    <origin xyz="0.0 -0.25 0.075" rpy="-1.57 0.0 0.0"/>
+    <origin xyz="0.0 -0.18 0.075" rpy="-1.57 0.0 0.0"/>
   </joint>
 
   <link name="right_wheel">
@@ -106,7 +107,7 @@
   <joint name="front_caster_joint" type="fixed">
     <parent link="chassis"/>
     <child link="front_caster_link"/>
-    <origin xyz="0.25 0.0 0.0465" rpy="0 0 0"/>
+    <origin xyz="0.18 0.0 0.0452" rpy="0 0 0"/>
     <mu1 value="0.001"/>
     <mu2 value="0.001"/>
   </joint>
@@ -140,7 +141,7 @@
   <joint name="back_caster_joint" type="fixed">
     <parent link="chassis"/>
     <child link="back_caster_link"/>
-    <origin xyz="-0.25 0.0 0.0465" rpy="0 0 0"/>
+    <origin xyz="-0.18 0.0 0.0452" rpy="0 0 0"/>
     <mu1 value="0.001"/>
     <mu2 value="0.001"/>
   </joint>
@@ -174,7 +175,7 @@
   <joint name="mount_joint" type="fixed">
     <parent link="chassis"/>
     <child link="mount_link"/>
-    <origin xyz="0.2 0.0 0.2" rpy="0.0 0.0 0.0"/>
+    <origin xyz="0.15 0.0 0.2" rpy="0.0 0.0 0.0"/>
   </joint>
 
   <link name="mount_link">
@@ -213,7 +214,7 @@
   </link>
 
   <joint name="camera_joint" type="fixed">
-    <origin xyz="0.35 0.0 0.125" rpy="0 0 0"/>
+    <origin xyz="0.25 0.0 0.125" rpy="0 0 0"/>
     <parent link="chassis"/>
     <child link="camera_link"/>
   </joint>
@@ -246,7 +247,7 @@
           </clip>
       </camera>
       <plugin name="camera_controller" filename="libgazebo_ros_camera.so">
-        <!-- <alwaysOn>true</alwaysOn> -->
+        <alwaysOn>true</alwaysOn>
         <frameName>camera_link_optical</frameName>
       </plugin>
     </sensor>
@@ -297,7 +298,7 @@
         </scan>
         <range>
           <min>0.3</min>
-          <max>15.0</max>
+          <max>5.0</max>
           <resolution>0.1</resolution>
         </range>
         <noise>
@@ -316,35 +317,12 @@
     </sensor>
   </gazebo>
 
-  <transmission name="left_wheel_transmission">
-    <type>transmission_interface/SimpleTransmission</type>
-    <joint name="left_wheel_joint">
-      <hardwareInterface>hardware_interface/VelocityJointInterface</hardwareInterface>
-    </joint>
-    <actuator name="left_wheel_motor">
-      <mechanicalReduction>1</mechanicalReduction>
-      <hardwareInterface>hardware_interface/VelocityJointInterface</hardwareInterface>
-    </actuator>
-  </transmission>
-
-  <transmission name="right_wheel_transmission">
-    <type>transmission_interface/SimpleTransmission</type>
-    <joint name="right_wheel_joint">
-      <hardwareInterface>hardware_interface/VelocityJointInterface</hardwareInterface>
-    </joint>
-    <actuator name="right_wheel_motor">
-      <mechanicalReduction>1</mechanicalReduction>
-      <hardwareInterface>hardware_interface/VelocityJointInterface</hardwareInterface>
-    </actuator>
-  </transmission>
-
-
   <gazebo>
     <plugin name='diff_drive' filename='libgazebo_ros_diff_drive.so'>
       <update_rate>50</update_rate>
       <left_joint>left_wheel_joint</left_joint>
       <right_joint>right_wheel_joint</right_joint>
-      <wheel_separation>0.50</wheel_separation>
+      <wheel_separation>0.36</wheel_separation>
       <wheel_diameter>0.16</wheel_diameter>
       <max_wheel_torque>10</max_wheel_torque>
       <max_wheel_acceleration>1.0</max_wheel_acceleration>
@@ -353,7 +331,7 @@
       <publish_wheel_tf>true</publish_wheel_tf>
       <odometry_source>1</odometry_source>
       <odometry_frame>odom</odometry_frame>
-      <robot_base_frame>base_link</robot_base_frame>
+      <robot_base_frame>base_footprint</robot_base_frame>
     </plugin>
   </gazebo> 
     

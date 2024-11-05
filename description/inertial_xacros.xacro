@@ -6,7 +6,7 @@
     <xacro:property name="wheel_radius" value="0.08"/>
     <xacro:property name="wheel_length" value="0.05"/>
     <xacro:property name="wheel_mass" value="0.75"/>
-    <xacro:property name="chassis_radius" value="0.35"/>
+    <xacro:property name="chassis_radius" value="0.25"/>
     <xacro:property name="chassis_length" value="0.1"/>
     <xacro:property name="chassis_mass" value="2"/>
     <xacro:property name="mount_radius" value="0.08"/>

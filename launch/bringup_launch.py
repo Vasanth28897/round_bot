@@ -1,8 +1,9 @@
 import os
 from launch import LaunchDescription
-from launch.substitutions import Command
+from launch.substitutions import Command,  LaunchConfiguration
 from launch_ros.actions import Node
 from launch.actions import ExecuteProcess
+from launch.conditions import IfCondition
 from ament_index_python.packages import get_package_share_directory
 
 def generate_launch_description():
@@ -13,6 +14,8 @@ def generate_launch_description():
   world_file = os.path.join(pkg_share, "worlds", "office_floor_plan.world")
   #controller_params_file = os.path.join(pkg_share,'config','control.yaml')
   robot_description = Command(['xacro ', xacro_file_path])
+
+  rviz_launch = LaunchConfiguration('rviz_launch', default='true') 
   
   rviz_node = Node(
     package='rviz2',
@@ -20,7 +23,8 @@ def generate_launch_description():
     name='rviz2',
     arguments=['-d', os.path.join(pkg_share, 'rviz', 'visualize.rviz')],
     output='screen',
-    parameters=[{'use_sim_time': True}]
+    parameters=[{'use_sim_time': True}],
+    condition=IfCondition(rviz_launch),
   )
 
   robot_state_publisher = Node(
@@ -46,7 +50,7 @@ def generate_launch_description():
   #   output='both',
   #   parameters=[{'robot_description': robot_description}, {'use_sim_time': 'true'}],
   # )
-
+  
   gazebo = ExecuteProcess(
     cmd=['gazebo', '--verbose', world_file,  '-s', 'libgazebo_ros_factory.so'] #os.path.join(pkg_share, 'worlds', 'your_world_file.world')],
   )
@@ -56,7 +60,8 @@ def generate_launch_description():
     executable= 'spawn_entity.py',
     name = 'urdf_spawner',
     output = 'screen',
-    arguments = ['-topic', '/robot_description', '-entity', 'round_bot'],
+    arguments = ['-topic', '/robot_description', '-entity', 'round_bot', '-x', '0.0', '-y', '0.0', '-z', '0.0',
+    '-R', '0.0', '-P', '0.0', '-Y', '1.57'],
     parameters=[{'use_sim_time': True}],
   )
 
