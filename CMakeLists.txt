@@ -32,6 +32,7 @@ install(
     mesh
     worlds
     maps
+    src
   DESTINATION 
     share/${PROJECT_NAME}
 )

@@ -54,6 +54,7 @@ def generate_launch_description():
     package='nav2_map_server',
     executable='map_server',
     name='map_server',
+    respawn=False,
     output='screen',
     respawn_delay=2.0,
     parameters=[localization_params_file, {'yaml_filename': map_yaml_file}, {'use_sim_true': True}],
@@ -63,6 +64,7 @@ def generate_launch_description():
     package='nav2_amcl',
     executable='amcl',
     name='amcl',
+    respawn=False,
     output='screen',
     respawn_delay=2.0,
     parameters=[localization_params_file, {'use_sim_true': True}],
@@ -80,6 +82,7 @@ def generate_launch_description():
     package='nav2_controller',
     executable='controller_server',
     output='screen',
+    respawn=False,
     respawn_delay=2.0,
     parameters=[nav2_params_file],
   )
@@ -88,6 +91,7 @@ def generate_launch_description():
     executable='smoother_server',
     name='smoother_server',
     output='screen',
+    respawn=False,
     respawn_delay=2.0,
     parameters=[nav2_params_file],
     remappings=remappings,
@@ -97,6 +101,7 @@ def generate_launch_description():
     executable='planner_server',
     name='planner_server',
     output='screen',
+    respawn=False,
     respawn_delay=2.0,
     parameters=[nav2_params_file],
     remappings=remappings,
@@ -106,6 +111,7 @@ def generate_launch_description():
     executable='behavior_server',
     name='behavior_server',
     output='screen',
+    respawn=False,
     respawn_delay=2.0,
     parameters=[nav2_params_file],
     remappings=remappings,
@@ -115,6 +121,7 @@ def generate_launch_description():
     executable='bt_navigator',
     name='bt_navigator',
     output='screen',
+    respawn=False,
     respawn_delay=2.0,
     parameters=[nav2_params_file],
     remappings=remappings,
@@ -124,6 +131,7 @@ def generate_launch_description():
     executable='waypoint_follower',
     name='waypoint_follower',
     output='screen',
+    respawn=False,
     respawn_delay=2.0,
     parameters=[nav2_params_file],
     remappings=remappings,
@@ -133,6 +141,7 @@ def generate_launch_description():
     executable='velocity_smoother',
     name='velocity_smoother',
     output='screen',
+    respawn=False,
     respawn_delay=2.0,
     parameters=[nav2_params_file],
     remappings=remappings,
@@ -149,7 +158,7 @@ def generate_launch_description():
   #                 PythonLaunchDescriptionSource([os.path.join(
   #               get_package_share_directory(package_name),'launch','localization_launch.py'
   #             )]),
-  #             launch_arguments={'localize_rviz_launch': 'false'}.items() 
+  #             launch_arguments={'localize_rviz_launch': False}.items() 
   # )
 
   # nav2 = GroupAction([

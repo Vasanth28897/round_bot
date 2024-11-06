@@ -6,6 +6,7 @@ Panels:
       Expanded:
         - /Global Options1
         - /Status1
+        - /Grid1/Status1
         - /global_costmap1/Topic1
       Splitter Ratio: 0.5
     Tree Height: 514
@@ -45,7 +46,7 @@ Visualization Manager:
         Y: 0
         Z: 0
       Plane: XY
-      Plane Cell Count: 10
+      Plane Cell Count: 15
       Reference Frame: <Fixed Frame>
       Value: true
     - Alpha: 0.699999988079071
@@ -451,25 +452,25 @@ Visualization Manager:
   Views:
     Current:
       Class: rviz_default_plugins/Orbit
-      Distance: 20.081789016723633
+      Distance: 22.86866569519043
       Enable Stereo Rendering:
         Stereo Eye Separation: 0.05999999865889549
         Stereo Focal Distance: 1
         Swap Stereo Eyes: false
         Value: false
       Focal Point:
-        X: -0.04796037822961807
-        Y: 1.0746413469314575
-        Z: -0.6974503993988037
+        X: 4.5756049156188965
+        Y: -2.0871222019195557
+        Z: -1.6671323776245117
       Focal Shape Fixed Size: true
       Focal Shape Size: 0.05000000074505806
       Invert Z Axis: false
       Name: Current View
       Near Clip Distance: 0.009999999776482582
-      Pitch: 0.8547964096069336
+      Pitch: 1.4647958278656006
       Target Frame: <Fixed Frame>
       Value: Orbit (rviz)
-      Yaw: 4.730388164520264
+      Yaw: 4.71537971496582
     Saved: ~
 Window Geometry:
   Displays:
