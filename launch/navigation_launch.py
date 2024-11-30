@@ -47,7 +47,7 @@ def generate_launch_description():
     name='rviz2',
     arguments=['-d', rviz_file],
     output='screen',
-    parameters=[{'use_sim_time': True}]
+    parameters=[{'use_sim_time': False}]
   )
 
   nav2_map_server = Node(
@@ -56,7 +56,6 @@ def generate_launch_description():
     name='map_server',
     respawn=False,
     output='screen',
-    respawn_delay=2.0,
     parameters=[localization_params_file, {'yaml_filename': map_yaml_file}, {'use_sim_true': True}],
     remappings=remappings,
   )
@@ -66,7 +65,6 @@ def generate_launch_description():
     name='amcl',
     respawn=False,
     output='screen',
-    respawn_delay=2.0,
     parameters=[localization_params_file, {'use_sim_true': True}],
     remappings=remappings,
   )
@@ -82,8 +80,6 @@ def generate_launch_description():
     package='nav2_controller',
     executable='controller_server',
     output='screen',
-    respawn=False,
-    respawn_delay=2.0,
     parameters=[nav2_params_file],
   )
   nav2_smoother = Node(
@@ -91,8 +87,6 @@ def generate_launch_description():
     executable='smoother_server',
     name='smoother_server',
     output='screen',
-    respawn=False,
-    respawn_delay=2.0,
     parameters=[nav2_params_file],
     remappings=remappings,
   )
@@ -101,8 +95,6 @@ def generate_launch_description():
     executable='planner_server',
     name='planner_server',
     output='screen',
-    respawn=False,
-    respawn_delay=2.0,
     parameters=[nav2_params_file],
     remappings=remappings,
   )
@@ -111,8 +103,6 @@ def generate_launch_description():
     executable='behavior_server',
     name='behavior_server',
     output='screen',
-    respawn=False,
-    respawn_delay=2.0,
     parameters=[nav2_params_file],
     remappings=remappings,
   )
@@ -121,8 +111,6 @@ def generate_launch_description():
     executable='bt_navigator',
     name='bt_navigator',
     output='screen',
-    respawn=False,
-    respawn_delay=2.0,
     parameters=[nav2_params_file],
     remappings=remappings,
   )
@@ -131,8 +119,6 @@ def generate_launch_description():
     executable='waypoint_follower',
     name='waypoint_follower',
     output='screen',
-    respawn=False,
-    respawn_delay=2.0,
     parameters=[nav2_params_file],
     remappings=remappings,
   )
@@ -141,8 +127,6 @@ def generate_launch_description():
     executable='velocity_smoother',
     name='velocity_smoother',
     output='screen',
-    respawn=False,
-    respawn_delay=2.0,
     parameters=[nav2_params_file],
     remappings=remappings,
   )
@@ -151,7 +135,7 @@ def generate_launch_description():
     executable='lifecycle_manager',
     name='lifecycle_manager_navigation',
     output='screen',
-    parameters=[{'autostart': True}, {'node_names': nav2_lifecyle_nodes}, {'use_sim_true': True}],
+    parameters=[{'autostart': True}, {'node_names': nav2_lifecyle_nodes}, {'use_sim_true': False}],
   )
 
   # localization = IncludeLaunchDescription(

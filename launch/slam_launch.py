@@ -25,7 +25,7 @@ def generate_launch_description():
     name='rviz2',
     arguments=['-d', rviz_file],
     output='screen',
-    parameters=[{'use_sim_time': True}]
+    parameters=[{'use_sim_time': False}]
   )
 
   slam = Node(

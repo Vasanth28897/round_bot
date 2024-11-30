@@ -23,7 +23,7 @@ def generate_launch_description():
     name='rviz2',
     arguments=['-d', os.path.join(pkg_share, 'rviz', 'visualize.rviz')],
     output='screen',
-    parameters=[{'use_sim_time': True}],
+    parameters=[{'use_sim_time': False}],
     condition=IfCondition(rviz_launch),
   )
 
@@ -43,13 +43,13 @@ def generate_launch_description():
     parameters=[{'robot_description': robot_description, 'use_sim_time': True}],
   )
 
-  # joint_state_publisher_gui = Node(
-  #   package='joint_state_publisher_gui',
-  #   executable='joint_state_publisher_gui',
-  #   name='joint_state_publisher_gui',
-  #   output='both',
-  #   parameters=[{'robot_description': robot_description}, {'use_sim_time': 'true'}],
-  # )
+  joint_state_publisher_gui = Node(
+    package='joint_state_publisher_gui',
+    executable='joint_state_publisher_gui',
+    name='joint_state_publisher_gui',
+    output='both',
+    parameters=[{'robot_description': robot_description}, {'use_sim_time': 'true'}],
+  )
   
   gazebo = ExecuteProcess(
     cmd=['gazebo', '--verbose', world_file,  '-s', 'libgazebo_ros_factory.so'] #os.path.join(pkg_share, 'worlds', 'your_world_file.world')],

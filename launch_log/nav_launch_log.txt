@@ -43,7 +43,7 @@ pc@pc:~/ros2_ws$ ros2 launch round_bot navigation_launch.py
 [smoother_server-10] 	Waiting on external lifecycle transitions to activate
 [smoother_server-10] 	See https://design.ros2.org/articles/node_lifecycle.html for more information.
 [robot_state_publisher-2] [INFO] [1730951398.297530142] [robot_state_publisher]: got segment back_caster_link
-[robot_state_publisher-2] [INFO] [1730951398.297667780] [robot_state_publisher]: got segment base_footprint
+[robot_state_publisher-2] [INFO] [1730951398.297667780] [robot_state_publisher]: got segment base_link
 [robot_state_publisher-2] [INFO] [1730951398.297681597] [robot_state_publisher]: got segment camera_link
 [robot_state_publisher-2] [INFO] [1730951398.297689332] [robot_state_publisher]: got segment camera_link_optical
 [robot_state_publisher-2] [INFO] [1730951398.297695430] [robot_state_publisher]: got segment chassis
@@ -197,7 +197,7 @@ pc@pc:~/ros2_ws$ ros2 launch round_bot navigation_launch.py
 [controller_server-9] [INFO] [1730951398.824044069] [controller_server]: Activating
 [controller_server-9] [INFO] [1730951398.824080838] [local_costmap.local_costmap]: Activating
 [controller_server-9] [INFO] [1730951398.824092704] [local_costmap.local_costmap]: Checking transform
-[controller_server-9] [INFO] [1730951398.824115162] [local_costmap.local_costmap]: Timed out waiting for transform from base_footprint to odom to become available, tf error: Invalid frame ID "odom" passed to canTransform argument target_frame - frame does not exist
+[controller_server-9] [INFO] [1730951398.824115162] [local_costmap.local_costmap]: Timed out waiting for transform from base_link to odom to become available, tf error: Invalid frame ID "odom" passed to canTransform argument target_frame - frame does not exist
 [joint_state_publisher-3] [INFO] [1730951398.881762052] [joint_state_publisher]: Waiting for robot_description to be published on the robot_description topic...
 [spawn_entity.py-5] [INFO] [1730951398.938195297] [urdf_spawner]: Spawn Entity started
 [spawn_entity.py-5] [INFO] [1730951398.938451938] [urdf_spawner]: Loading entity published on topic /robot_description
@@ -219,24 +219,24 @@ pc@pc:~/ros2_ws$ ros2 launch round_bot navigation_launch.py
 [gazebo-4] Released under the Apache 2 License.
 [gazebo-4] http://gazebosim.org
 [gazebo-4] 
-[controller_server-9] [INFO] [1730951399.324192766] [local_costmap.local_costmap]: Timed out waiting for transform from base_footprint to odom to become available, tf error: Invalid frame ID "odom" passed to canTransform argument target_frame - frame does not exist
+[controller_server-9] [INFO] [1730951399.324192766] [local_costmap.local_costmap]: Timed out waiting for transform from base_link to odom to become available, tf error: Invalid frame ID "odom" passed to canTransform argument target_frame - frame does not exist
 [rviz2-1] [INFO] [1730951399.403018525] [rviz2]: Stereo is NOT SUPPORTED
 [rviz2-1] [INFO] [1730951399.463755459] [rviz2]: Trying to create a map of size 328 x 321 using 1 swatches
 [rviz2-1] [ERROR] [1730951399.469590972] [rviz2]: Vertex Program:rviz/glsl120/indexed_8bit_image.vert Fragment Program:rviz/glsl120/indexed_8bit_image.frag GLSL link result : 
 [rviz2-1] active samplers with a different type refer to the same texture image unit
 [gazebo-4] [INFO] [1730951399.674967585] [gazebo_ros_node]: ROS was initialized without arguments.
 [spawn_entity.py-5] [INFO] [1730951399.714157876] [urdf_spawner]: Calling service /spawn_entity
-[controller_server-9] [INFO] [1730951399.824254787] [local_costmap.local_costmap]: Timed out waiting for transform from base_footprint to odom to become available, tf error: Invalid frame ID "odom" passed to canTransform argument target_frame - frame does not exist
+[controller_server-9] [INFO] [1730951399.824254787] [local_costmap.local_costmap]: Timed out waiting for transform from base_link to odom to become available, tf error: Invalid frame ID "odom" passed to canTransform argument target_frame - frame does not exist
 [gazebo-4] [Wrn] [Event.cc:61] Warning: Deleting a connection right after creation. Make sure to save the ConnectionPtr from a Connect call
-[controller_server-9] [INFO] [1730951400.324210832] [local_costmap.local_costmap]: Timed out waiting for transform from base_footprint to odom to become available, tf error: Invalid frame ID "odom" passed to canTransform argument target_frame - frame does not exist
+[controller_server-9] [INFO] [1730951400.324210832] [local_costmap.local_costmap]: Timed out waiting for transform from base_link to odom to become available, tf error: Invalid frame ID "odom" passed to canTransform argument target_frame - frame does not exist
 [gazebo-4] [INFO] [1730951400.605143648] [camera_controller]: Publishing camera info to [/camera/camera_info]
 [spawn_entity.py-5] [INFO] [1730951400.698022211] [urdf_spawner]: Spawn status: SpawnEntity: Successfully spawned entity [round_bot]
 [gazebo-4] [INFO] [1730951400.740922287] [diff_drive]: Wheel pair 1 separation set to [0.360000m]
 [gazebo-4] [INFO] [1730951400.741043176] [diff_drive]: Wheel pair 1 diameter set to [0.160000m]
 [gazebo-4] [INFO] [1730951400.743964654] [diff_drive]: Subscribed to [/cmd_vel]
 [gazebo-4] [INFO] [1730951400.748285369] [diff_drive]: Advertise odometry on [/odom]
-[gazebo-4] [INFO] [1730951400.752347002] [diff_drive]: Publishing odom transforms between [odom] and [base_footprint]
-[gazebo-4] [INFO] [1730951400.752403342] [diff_drive]: Publishing wheel transforms between [base_footprint], [left_wheel_joint] and [right_wheel_joint]
+[gazebo-4] [INFO] [1730951400.752347002] [diff_drive]: Publishing odom transforms between [odom] and [base_link]
+[gazebo-4] [INFO] [1730951400.752403342] [diff_drive]: Publishing wheel transforms between [base_link], [left_wheel_joint] and [right_wheel_joint]
 [amcl-7] [INFO] [1730951400.775898320] [amcl]: createLaserObject
 [controller_server-9] [INFO] [1730951400.824332571] [local_costmap.local_costmap]: start
 [gazebo-4] [Wrn] [Event.cc:61] Warning: Deleting a connection right after creation. Make sure to save the ConnectionPtr from a Connect call
@@ -261,7 +261,7 @@ pc@pc:~/ros2_ws$ ros2 launch round_bot navigation_launch.py
 [planner_server-11] [INFO] [1730951401.295973089] [planner_server]: Activating
 [planner_server-11] [INFO] [1730951401.296035507] [global_costmap.global_costmap]: Activating
 [planner_server-11] [INFO] [1730951401.296069097] [global_costmap.global_costmap]: Checking transform
-[planner_server-11] [INFO] [1730951401.296111917] [global_costmap.global_costmap]: Timed out waiting for transform from base_footprint to map to become available, tf error: Invalid frame ID "map" passed to canTransform argument target_frame - frame does not exist
+[planner_server-11] [INFO] [1730951401.296111917] [global_costmap.global_costmap]: Timed out waiting for transform from base_link to map to become available, tf error: Invalid frame ID "map" passed to canTransform argument target_frame - frame does not exist
 [rviz2-1] [INFO] [1730951409.821782236] [rviz2]: Message Filter dropping message: frame 'lidar_link' at time 46.384 for reason 'discarding message because the queue is full'
 [rviz2-1] [INFO] [1730951409.853874942] [rviz2]: Message Filter dropping message: frame 'lidar_link' at time 46.404 for reason 'discarding message because the queue is full'
 [rviz2-1] [INFO] [1730951409.886182153] [rviz2]: Message Filter dropping message: frame 'lidar_link' at time 46.445 for reason 'discarding message because the queue is full'

@@ -76,7 +76,7 @@ Visualization Manager:
         All Enabled: true
         back_caster_link:
           Value: true
-        base_footprint:
+        base_link:
           Value: true
         camera_link:
           Value: true
@@ -106,7 +106,7 @@ Visualization Manager:
       Tree:
         map:
           odom:
-            base_footprint:
+            base_link:
               chassis:
                 back_caster_link:
                   {}
@@ -147,7 +147,7 @@ Visualization Manager:
           Show Axes: false
           Show Trail: false
           Value: true
-        base_footprint:
+        base_link:
           Alpha: 1
           Show Axes: false
           Show Trail: false

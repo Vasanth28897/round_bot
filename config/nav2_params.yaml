@@ -1,6 +1,6 @@
 bt_navigator:
   ros__parameters:
-    use_sim_time: True
+    use_sim_time: False
     global_frame: map
     robot_base_frame: base_footprint
     odom_topic: /odom
@@ -24,7 +24,7 @@ bt_navigator:
 
 controller_server:
   ros__parameters:
-    use_sim_time: True
+    use_sim_time: False
     controller_frequency: 20.0
     min_x_velocity_threshold: 0.001
     min_y_velocity_threshold: 0.5
@@ -145,9 +145,9 @@ local_costmap:
     ros__parameters:
       update_frequency: 5.0
       publish_frequency: 2.0
-      global_frame: odom
+      global_frame: map # odom
       robot_base_frame: base_footprint
-      use_sim_time: True
+      use_sim_time: False
       rolling_window: true
       width: 3
       height: 3
@@ -200,7 +200,7 @@ global_costmap:
       publish_frequency: 1.0
       global_frame: map
       robot_base_frame: base_footprint
-      use_sim_time: True
+      use_sim_time: False
       robot_radius: 0.25
       resolution: 0.06
       track_unknown_space: true
@@ -251,7 +251,7 @@ global_costmap:
 planner_server:  
   ros__parameters:
     expected_planner_frequency: 20.0
-    use_sim_time: True
+    use_sim_time: False
     planner_plugins: ["GridBased"]
     GridBased:
       plugin: "nav2_navfn_planner/NavfnPlanner"
@@ -261,7 +261,7 @@ planner_server:
 
 smoother_server:
   ros__parameters:
-    use_sim_time: True
+    use_sim_time: False
     smoother_plugins: ["simple_smoother"]
     simple_smoother:
       plugin: "nav2_smoother::SimpleSmoother"
@@ -291,7 +291,7 @@ behavior_server:
     global_frame: map
     robot_base_frame: base_footprint
     transform_tolerance: 0.1
-    use_sim_time: true
+    use_sim_time: False
     simulate_ahead_time: 2.0
     max_rotational_vel: 1.0
     min_rotational_vel: 0.4
@@ -299,7 +299,7 @@ behavior_server:
 
 waypoint_follower:
   ros__parameters:
-    use_sim_time: True
+    use_sim_time: False
     loop_rate: 200
     stop_on_failure: false
     waypoint_task_executor_plugin: "wait_at_waypoint"
@@ -310,7 +310,7 @@ waypoint_follower:
 
 velocity_smoother:
   ros__parameters:
-    use_sim_time: True
+    use_sim_time: False
     smoothing_frequency: 20.0
     scale_velocities: False
     feedback: "OPEN_LOOP"

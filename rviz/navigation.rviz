@@ -6,8 +6,7 @@ Panels:
       Expanded:
         - /Global Options1
         - /Status1
-        - /Grid1/Status1
-        - /global_costmap1/Topic1
+        - /local_costmap1/Topic1
       Splitter Ratio: 0.5
     Tree Height: 514
   - Class: rviz_common/Selection
@@ -136,8 +135,8 @@ Visualization Manager:
       Marker Scale: 1
       Name: TF
       Show Arrows: true
-      Show Axes: true
-      Show Names: false
+      Show Axes: false
+      Show Names: true
       Tree:
         map:
           odom:
@@ -235,13 +234,13 @@ Visualization Manager:
       Visual Enabled: true
     - Alpha: 0.699999988079071
       Class: rviz_default_plugins/Map
-      Color Scheme: map
+      Color Scheme: costmap
       Draw Behind: false
       Enabled: true
       Name: global_costmap
       Topic:
         Depth: 5
-        Durability Policy: Volatile
+        Durability Policy: Transient Local
         Filter size: 10
         History Policy: Keep Last
         Reliability Policy: Reliable
@@ -256,13 +255,13 @@ Visualization Manager:
       Value: true
     - Alpha: 0.699999988079071
       Class: rviz_default_plugins/Map
-      Color Scheme: map
+      Color Scheme: raw
       Draw Behind: false
       Enabled: true
       Name: local_costmap
       Topic:
         Depth: 5
-        Durability Policy: Volatile
+        Durability Policy: Transient Local
         Filter size: 10
         History Policy: Keep Last
         Reliability Policy: Reliable
@@ -452,7 +451,7 @@ Visualization Manager:
   Views:
     Current:
       Class: rviz_default_plugins/Orbit
-      Distance: 22.86866569519043
+      Distance: 22.539356231689453
       Enable Stereo Rendering:
         Stereo Eye Separation: 0.05999999865889549
         Stereo Focal Distance: 1
