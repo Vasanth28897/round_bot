@@ -257,7 +257,6 @@
     <visual>
       <geometry>
         <cylinder radius="${lidar_radius}" length="${lidar_length}"/>
-        <!-- <mesh filename="package://round_bot/mesh/lds.stl" scale="0.001 0.001 0.001"/> -->
       </geometry>
       <material name="red">
         <color rgba="1 0 0 1"/>
@@ -267,7 +266,6 @@
     <collision>
       <geometry>
         <cylinder radius="${lidar_radius}" length="${lidar_length}"/>
-        <!-- <mesh filename="package://round_bot/mesh/lds.stl" scale="0.001 0.001 0.001"/> -->
       </geometry>
     </collision>
     <xacro:inertial_lidar_cylinder lidar_mass="0.1" lidar_length="0.07" lidar_radius="0.1"> 
@@ -334,5 +332,37 @@
       <robot_base_frame>base_footprint</robot_base_frame>
     </plugin>
   </gazebo> 
+
+  <joint name="arm_base_joint" type="fixed">
+    <parent link="chassis"/>
+    <child link="arm_base"/>
+    <origin xyz="0.0 0.0 0.18" rpy="0.0 0.0 0.0"/>
+  </joint>
+  
+  <link name="arm_base">
+    <visual>
+      <origin xyz="0.0 0.0 0.0" rpy="0.0 0.0 0.0"/>
+      <geometry>
+        <cylinder radius="0.1" length="0.015"/>
+      </geometry>
+      <material name ="Orange">
+        <color rgba = "1.0 0.0 0.0 1.0"/>
+      </material>
+    </visual>
+    <collision>
+      <origin xyz="0.0 0.0 0.0" rpy="0.0 0.0 0.0"/>
+      <geometry>
+        <cylinder radius="0.1" length="0.015"/>
+      </geometry>
+      <contact_coefficients mu1 = "1" mu2 = "1" kp = "1e+13.0" kd = "1.0"/>
+    </collision>
+    <xacro:inertial_chassis_cylinder chassis_mass="${chassis_mass}" chassis_length="${chassis_length}" chassis_radius="${chassis_radius}">
+      <origin xyz="0 0 0.12" rpy="0 0 0"/>
+    </xacro:inertial_chassis_cylinder>
+  </link>
+
+  <gazebo reference = "chassis">
+    <material>Gazebo/Red </material>
+  </gazebo>
     
 </robot>
