@@ -281,7 +281,7 @@
 
   <gazebo reference="lidar_link">
     <material> Gazebo/Red</material>
-      <sensor name="gazebo_lidar" type="ray">
+      <sensor name="block_laser_sensor" type="ray">
       <pose> 0 0 0 0 0 0 </pose>
       <visualize>true</visualize>
       <update_rate>50.0</update_rate>
@@ -296,7 +296,7 @@
         </scan>
         <range>
           <min>0.3</min>
-          <max>5.0</max>
+          <max>2.5</max>
           <resolution>0.1</resolution>
         </range>
         <noise>
@@ -305,11 +305,12 @@
           <stddev>0.01</stddev>
         </noise>
       </ray>
-      <plugin name="scan" filename="libgazebo_ros_ray_sensor.so">
+      <plugin name="gazebo_ros_block_laser_controller" filename="libgazebo_ros_ray_sensor.so">
         <ros>
-            <remapping>~/out:=scan</remapping>
+          <remapping>~/out:=scan</remapping>
         </ros>
         <output_type>sensor_msgs/LaserScan</output_type>
+        <!-- <output_type>sensor_msgs/PointCloud2</output_type> -->
         <frame_name>lidar_link</frame_name>
       </plugin>
     </sensor>
@@ -333,7 +334,7 @@
     </plugin>
   </gazebo> 
 
-  <joint name="arm_base_joint" type="fixed">
+  <!-- <joint name="arm_base_joint" type="fixed">
     <parent link="chassis"/>
     <child link="arm_base"/>
     <origin xyz="0.0 0.0 0.18" rpy="0.0 0.0 0.0"/>
@@ -359,7 +360,7 @@
     <xacro:inertial_chassis_cylinder chassis_mass="${chassis_mass}" chassis_length="${chassis_length}" chassis_radius="${chassis_radius}">
       <origin xyz="0 0 0.12" rpy="0 0 0"/>
     </xacro:inertial_chassis_cylinder>
-  </link>
+  </link> -->
 
   <gazebo reference = "chassis">
     <material>Gazebo/Red </material>

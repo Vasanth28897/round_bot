@@ -29,7 +29,6 @@ install(
     description 
     rviz 
     config
-    mesh
     worlds
     maps
     src
