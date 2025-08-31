@@ -38,9 +38,10 @@ amcl:
     z_rand: 0.5
     z_short: 0.05
     scan_topic: scan
+    set_initial_pose: true
     initial_pose:
-      x: -0.000018
-      y: -0.000117
+      x: -0.003177
+      y: -0.008125
       z: 0.004998
       yaw: 1.570051
 
