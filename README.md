@@ -76,6 +76,8 @@ This package contains docker to execute the gazebo harmonic and the robot model(
     ros2 launch round_bot bringup_launch.py
     ```
 
+![Simulation Image](https://github.com/Vasanth28897/round_bot/blob/humble_gazebo_latest/docs/robot_spawn.png)
+
 * Check the listed topics in the local system 
     
     ```
@@ -158,6 +160,4 @@ This package contains docker to execute the gazebo harmonic and the robot model(
     ```bash
     ros2 action send_goal /navigate_to_pose nav2_msgs/action/NavigateToPose "{pose: {header: {stamp: {sec: 0, nanosec: 0}, frame_id: 'map'}, pose: {position: {x: 3.0, y: 3.0, z: 0.0}, orientation: {x: 0.0, y: 0.0, z: 0.0, w: 1.0}}}}"
     ```
-
-
  
