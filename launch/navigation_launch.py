@@ -12,9 +12,10 @@ def generate_launch_description():
     pkg_share = get_package_share_directory(package_name)
     
     localization_params_file = os.path.join(pkg_share, 'config', 'localization.yaml')
+    # nav2_params_file = os.path.join(pkg_share, 'config', 'nav2_params_3d.yaml')
     nav2_params_file = os.path.join(pkg_share, 'config', 'nav2_params.yaml')
     rviz_file = os.path.join(pkg_share, 'rviz', 'navigation.rviz')
-    map_yaml_file = os.path.join(pkg_share, 'maps', 'office_floor.yaml')  # the map file path can be given in the yaml file, if the map file path mentioned there, no need to give in the nav2_map_server node
+    map_yaml_file = os.path.join(pkg_share, 'maps', 'edifice.yaml')  # the map file path can be given in the yaml file, if the map file path mentioned there, no need to give in the nav2_map_server node
     
     use_sim_time = LaunchConfiguration('use_sim_time')
     autostart = LaunchConfiguration('autostart')
@@ -156,7 +157,7 @@ def generate_launch_description():
     ld.add_action(declare_autostart_cmd)
 
     # Add nodes to launch
-    ld.add_action(bring_up)
+    # ld.add_action(bring_up)
     ld.add_action(rviz_node)
     ld.add_action(nav2_map_server)
     ld.add_action(nav2_amcl)
