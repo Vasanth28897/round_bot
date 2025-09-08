@@ -1,6 +1,6 @@
 import os
 from launch import LaunchDescription
-from launch.actions import DeclareLaunchArgument, IncludeLaunchDescription
+from launch.actions import DeclareLaunchArgument, SetEnvironmentVariable, IncludeLaunchDescription
 from launch_ros.actions import Node
 from ament_index_python.packages import get_package_share_directory
 from launch.launch_description_sources import PythonLaunchDescriptionSource
@@ -12,8 +12,8 @@ def generate_launch_description():
     pkg_share = get_package_share_directory(package_name)
     
     localization_params_file = os.path.join(pkg_share, 'config', 'localization.yaml')
-    nav2_params_file = os.path.join(pkg_share, 'config', 'nav2_params.yaml')
-    rviz_file = os.path.join(pkg_share, 'rviz', 'navigation.rviz')
+    nav2_params_file = os.path.join(pkg_share, 'config', 'nav2_params_stvl.yaml')
+    rviz_file = os.path.join(pkg_share, 'rviz', 'navigation_stvl.rviz')
     map_yaml_file = os.path.join(pkg_share, 'maps', 'office_floor.yaml')  # the map file path can be given in the yaml file, if the map file path mentioned there, no need to give in the nav2_map_server node
     
     use_sim_time = LaunchConfiguration('use_sim_time')
@@ -31,9 +31,9 @@ def generate_launch_description():
     declare_use_sim_time_cmd = DeclareLaunchArgument('use_sim_time', default_value='false', description='Use simulation time')
     declare_autostart_cmd = DeclareLaunchArgument('autostart', default_value='true', description='Auto start nav2 stack')
 
-    bring_up = IncludeLaunchDescription(
+    bringup_launch_3d_launch = IncludeLaunchDescription(
               PythonLaunchDescriptionSource([os.path.join(
-                  get_package_share_directory(package_name),'launch','bringup_launch.py'
+                  get_package_share_directory(package_name),'launch','bringup_with_depth_camera_launch.py'
               )]),
               launch_arguments={'rviz_launch': 'false'}.items() 
   )
@@ -49,21 +49,21 @@ def generate_launch_description():
     
     # Start Localization Nodes
     nav2_map_server = Node(
-      package='nav2_map_server',
-      executable='map_server',
-      name='map_server',
-      output='screen',
-      parameters=[localization_params_file, {'yaml_filename': map_yaml_file}],
-      remappings=remappings,
+    package='nav2_map_server',
+    executable='map_server',
+    name='map_server',
+    output='screen',
+    parameters=[localization_params_file, {'yaml_filename': map_yaml_file}],
+    remappings=remappings,
     )
     
     nav2_amcl = Node(
-      package='nav2_amcl',
-      executable='amcl',
-      name='amcl',
-      output='screen',
-      parameters=[localization_params_file],
-      remappings=remappings,
+    package='nav2_amcl',
+    executable='amcl',
+    name='amcl',
+    output='screen',
+    parameters=[localization_params_file],
+    remappings=remappings,
     )
 
     # Start RViz
@@ -156,7 +156,7 @@ def generate_launch_description():
     ld.add_action(declare_autostart_cmd)
 
     # Add nodes to launch
-    ld.add_action(bring_up)
+    ld.add_action(bringup_launch_3d_launch)
     ld.add_action(rviz_node)
     ld.add_action(nav2_map_server)
     ld.add_action(nav2_amcl)

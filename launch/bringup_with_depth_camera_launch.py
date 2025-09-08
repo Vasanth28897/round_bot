@@ -10,17 +10,17 @@ def generate_launch_description():
   package_name = 'round_bot'
   pkg_share = get_package_share_directory(package_name)
 
-  xacro_file_path = os.path.join(pkg_share, 'description', 'round_bot.urdf.xacro')
+  xacro_file_path = os.path.join(pkg_share, 'description', 'round_bot_with_depth_camera.urdf.xacro')
   world_file = os.path.join(pkg_share, "worlds", "office_floor_plan.world")
   robot_description = Command(['xacro ', xacro_file_path])
   
   rviz_launch = LaunchConfiguration('rviz_launch', default='true') 
-
+  
   rviz_node = Node(
     package='rviz2',
     executable='rviz2',
     name='rviz2',
-    arguments=['-d', os.path.join(pkg_share, 'rviz', 'visualize.rviz')],
+    arguments=['-d', os.path.join(pkg_share, 'rviz', 'visualize_with_depth_camera.rviz')],
     output='screen',
     parameters=[{'use_sim_time': True}],
     condition=IfCondition(rviz_launch),

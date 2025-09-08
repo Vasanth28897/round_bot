@@ -1,7 +1,7 @@
 <?xml version="1.0"?>
 <robot xmlns:xacro="http://www.ros.org/wiki/xacro" name="round_bot">
 
-  <xacro:include filename="$(find round_bot)/description/inertial_xacros.xacro"/>
+  <xacro:include filename="$(find round_bot)/description/inertial_xacros.xacro"/> 
   
   <link name="base_footprint"/> 
   
@@ -226,25 +226,28 @@
   <!-- camera -->
   <gazebo reference="camera_link">
     <material>Gazebo/Blue</material>
-    <sensor type="camera" name="camera">
-      <update_rate>10.0</update_rate>
-      <camera name="head">
-          <horizontal_fov>1.3962634</horizontal_fov>
+    <sensor name="depth_camera" type="depth">
+        <pose> 0 0 0 0 0 0 </pose>
+        <visualize>true</visualize>
+        <update_rate>5</update_rate>
+        <camera>
+          <horizontal_fov>1.089</horizontal_fov>
           <image>
+            <format>B8G8R8</format>
             <width>640</width>
             <height>480</height>
-            <format>R8G8B8</format>
           </image>
           <clip>
             <near>0.05</near>
             <far>8.0</far>
           </clip>
-      </camera>
-      <plugin name="camera_controller" filename="libgazebo_ros_camera.so">
-        <alwaysOn>true</alwaysOn>
-        <frameName>camera_link_optical</frameName>
-      </plugin>
-    </sensor>
+        </camera>
+        <plugin name="camera_controller" filename="libgazebo_ros_camera.so">
+          <frame_name>camera_link_optical</frame_name>
+          <min_depth>0.1</min_depth>
+          <max_depth>100.0</max_depth>
+        </plugin>
+      </sensor>
   </gazebo>
 
   <link name="lidar_link">
@@ -273,6 +276,54 @@
     <child link="lidar_link"/>
   </joint>
 
+  <!-- 3d lidar -->
+  <!-- <gazebo reference="lidar_link">
+    <material>Gazebo/Red</material>
+    <sensor type="ray" name="block_laser_sensor">
+      <pose>0 0 0 0 0 0</pose>
+      <visualize>false</visualize>
+      <ray>
+        <scan>
+          <horizontal>
+            <samples>180</samples>
+            <resolution>1</resolution>
+              <min_angle>-3.14159</min_angle>
+              <max_angle>3.14159</max_angle>
+          </horizontal>
+          <vertical>
+            <samples>10</samples>
+            <resolution>1</resolution>
+            <min_angle>-0.3</min_angle>
+            <max_angle>0.3</max_angle>
+          </vertical>
+        </scan>
+        <range>
+          <min>0.3</min>
+          <max>2.5</max>
+          <resolution>0.01</resolution>
+        </range>
+      </ray>
+      <plugin name="gazebo_ros_block_laser_controller" filename="libgazebo_ros_ray_sensor.so">
+        <ros>
+          <remapping>~/out:=velodyne_points</remapping>  
+          <qos>
+            <topic name="velodyne_points">
+              <publisher>
+                <reliability>reliable</reliability>
+              </publisher>
+            </topic>
+          </qos>                                                                                                                         
+        </ros>
+        <output_type>sensor_msgs/PointCloud2</output_type>
+        <alwaysOn>true</alwaysOn>
+        <updateRate>1</updateRate>
+        <topicName>velodyne_points</topicName>
+        <frame_name>lidar_link</frame_name>
+      </plugin>
+    </sensor>
+  </gazebo> -->
+
+  <!-- 2d lidar -->
   <gazebo reference="lidar_link">
     <material>Gazebo/Red</material>
       <sensor name="block_laser_sensor" type="ray">
@@ -325,5 +376,5 @@
       <odometry_frame>odom</odometry_frame>
       <robot_base_frame>base_footprint</robot_base_frame>
     </plugin>
-  </gazebo>  
+  </gazebo> 
 </robot>
