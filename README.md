@@ -100,12 +100,12 @@ stvl with camera
 
 ![gif_example](https://github.com/Vasanth28897/round_bot/blob/humble_gazebo_classic/docs/gifs/3d_costmap_navigation_with_camera.gif)
 
+ 
     ```bash
     ros2 launch round_bot navigation_with_stvl_launch.py
-    
     ```
 
-    the round bot localize automatically, you can send the goal using  `2d_goal` in the rviz, or you can send the `send_goal` command like this below in another terminal
+the round bot localize automatically, you can send the goal using  `2d_goal` in the rviz, or you can send the `send_goal` command like this below in another terminal
 
     ```bash
     ros2 action send_goal /navigate_to_pose nav2_msgs/action/NavigateToPose "{pose: {header: {stamp: {sec: 0, nanosec: 0}, frame_id: 'map'}, pose: {position: {x: 3.0, y: 3.0, z: 0.0}, orientation: {x: 0.0, y: 0.0, z: 0.0, w: 1.0}}}}"
@@ -117,4 +117,3 @@ stvl with camera
 * [Spatio-Temporal Voxel Layer](https://github.com/SteveMacenski/spatio_temporal_voxel_layer) GitHub repository
 
 * [ros2-navigations-stvl](https://github.com/mich-pest/ros2_navigation_stvl) Github repository.
- 
