@@ -6,6 +6,9 @@ This package contains creating 2d costmap and 3d costmap using STVL(Spatio Tempo
 * ROS2 - Humble
 
 ### Workflow for the 2d costmap and navigation
+
+![gif_example](https://github.com/Vasanth28897/round_bot/blob/humble_gazebo_classic/docs/gifs/2d_costmap_navigation.gif)
+
 * To drive and play with the round_bot, launch this command
 
     ```bash
@@ -50,11 +53,17 @@ This package contains creating 2d costmap and 3d costmap using STVL(Spatio Tempo
     ```
 
 
-### Workflow for the 3d costmap generation 
+### Workflow for the 3d costmap and navigation 
+
+Available Plug&Play Setups 
+--------------------------
+### STVL Observation Sources
+I used two different sensors to build the voxel grid in this package: 3D LiDAR and a depth camera(mounted in the front of the round bot).
+
 * To drive and play with the round_bot, launch this command
 
     ```bash
-    ros2 launch round_bot bringup_with_depth_camera_launch.
+    ros2 launch round_bot bringup_with_depth_camera_and_3d_lidar_launch.
     
     ```
 
@@ -68,7 +77,7 @@ This package contains creating 2d costmap and 3d costmap using STVL(Spatio Tempo
 * To generate a slam, use this command(use the teleop_twist_keyboard to drive and map the environment)
 
     ```bash
-    ros2 launch round_bot slam_with_depth_camera_launch.py
+    ros2 launch round_bot slam_with_depth_camera_and_3d_lidar_launch.py
     
     ```
 
@@ -80,7 +89,16 @@ This package contains creating 2d costmap and 3d costmap using STVL(Spatio Tempo
     ```
 
 
-* To make the round_bot go autonomously, use this below command (Note : Don't forget to add the map_filename.yaml file in the navigation_launch.py file)
+* To make the round_bot go autonomously, use this below command (Note : Don't forget to add the map_filename.yaml file in the navigation_launch.py file).
+* If you want to use the 3d_lidar for the voxel grid, change the `SENSOR` name as `3d_lidar` or if you want to use the depth_camera for the voxel grid change the `SENSOR` name as `camera` in the `navigation_with_stvl_launch.py` file.
+
+stvl with 3d_lidar
+
+![gif_example](https://github.com/Vasanth28897/round_bot/blob/humble_gazebo_classic/docs/gifs/3d_costmap_navigation_with_3d_lidar.gif)
+
+stvl with camera
+
+![gif_example](https://github.com/Vasanth28897/round_bot/blob/humble_gazebo_classic/docs/gifs/3d_costmap_navigation_with_camera.gif)
 
     ```bash
     ros2 launch round_bot navigation_with_stvl_launch.py
@@ -94,4 +112,9 @@ This package contains creating 2d costmap and 3d costmap using STVL(Spatio Tempo
     
     ```
 
+
+## References
+* [Spatio-Temporal Voxel Layer](https://github.com/SteveMacenski/spatio_temporal_voxel_layer) GitHub repository
+
+* [ros2-navigations-stvl](https://github.com/mich-pest/ros2_navigation_stvl) Github repository.
  

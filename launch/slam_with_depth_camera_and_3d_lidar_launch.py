@@ -14,7 +14,7 @@ def generate_launch_description():
   rviz_file = os.path.join(pkg_share, 'rviz', 'slam_with_depth_camera.rviz')
   bring_up = IncludeLaunchDescription(
               PythonLaunchDescriptionSource([os.path.join(
-                  get_package_share_directory(package_name),'launch','bringup_with_depth_camera_launch.py'
+                  get_package_share_directory(package_name),'launch','bringup_with_depth_camera_and_3d_lidar_launch.py'
               )]),
               launch_arguments={'rviz_launch': 'false'}.items() 
   )
@@ -25,7 +25,7 @@ def generate_launch_description():
     name='rviz2',
     arguments=['-d', rviz_file],
     output='screen',
-    parameters=[{'use_sim_time': False}]
+    parameters=[{'use_sim_time': True}]
   )
 
   slam = Node(

@@ -28,7 +28,7 @@ def generate_launch_description():
     ]
     
     # Declare launch arguments
-    declare_use_sim_time_cmd = DeclareLaunchArgument('use_sim_time', default_value='false', description='Use simulation time')
+    declare_use_sim_time_cmd = DeclareLaunchArgument('use_sim_time', default_value='true', description='Use simulation time')
     declare_autostart_cmd = DeclareLaunchArgument('autostart', default_value='true', description='Auto start nav2 stack')
 
     bring_up = IncludeLaunchDescription(

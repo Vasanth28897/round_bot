@@ -10,7 +10,7 @@ def generate_launch_description():
   package_name = 'round_bot'
   pkg_share = get_package_share_directory(package_name)
 
-  xacro_file_path = os.path.join(pkg_share, 'description', 'round_bot_with_depth_camera.urdf.xacro')
+  xacro_file_path = os.path.join(pkg_share, 'description', 'round_bot_with_depth_camera_and_3d_lidar.urdf.xacro')
   world_file = os.path.join(pkg_share, "worlds", "office_floor_plan.world")
   robot_description = Command(['xacro ', xacro_file_path])
   
