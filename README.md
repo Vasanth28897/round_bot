@@ -75,4 +75,5 @@ without Scan filter
     ros2 launch round_bot navigation_launch.py
     ```
 
+## Navigation demo
 ![dynamic_obstacle_avoiding](https://github.com/Vasanth28897/round_bot/blob/new_gazebo_dynamic_obstacle/docs/avoid_dynamic_obstacle.gif)
