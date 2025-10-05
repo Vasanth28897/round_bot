@@ -39,8 +39,8 @@ def generate_launch_description():
   
   return LaunchDescription([
     bring_up,
-    rviz_node,
-    slam
+    slam,
+    rviz_node
   ])
 
 

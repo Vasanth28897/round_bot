@@ -4,6 +4,9 @@ bt_navigator:
     global_frame: map
     robot_base_frame: base_footprint
     odom_topic: /odom
+    # default_bt_xml_filename: "navigate_w_replanning_and_recovery.xml"
+    qos_overrides:
+      reliability: best_effort
     bt_loop_duration: 10
     default_server_timeout: 20
     wait_for_service_timeout: 1000
@@ -11,8 +14,12 @@ bt_navigator:
     navigators: ["navigate_to_pose", "navigate_through_poses"]
     navigate_to_pose:
       plugin: "nav2_bt_navigator::NavigateToPoseNavigator"
+      enable_groot_monitoring: false
+      groot_server_port: 1669
     navigate_through_poses:
       plugin: "nav2_bt_navigator::NavigateThroughPosesNavigator"
+      enable_groot_monitoring: false
+      groot_server_port: 1669
 
 controller_server:
   ros__parameters:
@@ -35,144 +42,145 @@ controller_server:
       plugin: "nav2_controller::SimpleGoalChecker"
       xy_goal_tolerance: 0.25
       yaw_goal_tolerance: 0.25
-    # MPPI parameters
+    # TEB parameters
     FollowPath:
-      plugin: "nav2_mppi_controller::MPPIController"
-      time_steps: 56
-      model_dt: 0.05
-      batch_size: 2000
-      ax_max: 3.0
-      ax_min: -3.0
-      ay_max: 3.0
-      az_max: 3.5
-      vx_std: 0.2
-      vy_std: 0.2
-      wz_std: 0.4
-      vx_max: 1.0
-      vx_min: 0.00
-      vy_max: 0.0
-      wz_max: 1.9
-      iteration_count: 1
-      prune_distance: 1.7
-      transform_tolerance: 0.1
-      temperature: 0.3
-      gamma: 0.015
-      motion_model: "DiffDrive"
-      visualize: true
-      regenerate_noises: true
-      TrajectoryVisualizer:
-        trajectory_step: 5
-        time_step: 3
-      TrajectoryValidator:
-        plugin: "mppi::DefaultOptimalTrajectoryValidator"
-        collision_lookahead_time: 2.0
-        consider_footprint: false
-      AckermannConstraints:
-        min_turning_r: 0.2
-      critics: [
-        "ConstraintCritic", "CostCritic", "GoalCritic",
-        "GoalAngleCritic", "PathAlignCritic", "PathFollowCritic",
-        "PathAngleCritic", "PreferForwardCritic"]
-      ConstraintCritic:
-        enabled: true
-        cost_power: 1
-        cost_weight: 4.0
-      GoalCritic:
-        enabled: true
-        cost_power: 1
-        cost_weight: 5.0
-        threshold_to_consider: 1.4
-      GoalAngleCritic:
-        enabled: true
-        cost_power: 1
-        cost_weight: 3.0
-        threshold_to_consider: 0.5
-      PreferForwardCritic:
-        enabled: true
-        cost_power: 1
-        cost_weight: 5.0
-        threshold_to_consider: 0.5
-      CostCritic:
-        enabled: true
-        cost_power: 1
-        cost_weight: 3.81
-        critical_cost: 300.0
-        consider_footprint: true
-        collision_cost: 1000000.0
-        near_goal_distance: 1.0
-        trajectory_point_step: 2
-      PathAlignCritic:
-        enabled: true
-        cost_power: 1
-        cost_weight: 14.0
-        max_path_occupancy_ratio: 0.05
-        trajectory_point_step: 4
-        threshold_to_consider: 0.5
-        offset_from_furthest: 20
-        use_path_orientations: false
-      PathFollowCritic:
-        enabled: true
-        cost_power: 1
-        cost_weight: 5.0
-        offset_from_furthest: 5
-        threshold_to_consider: 1.4
-      PathAngleCritic:
-        enabled: true
-        cost_power: 1
-        cost_weight: 2.0
-        offset_from_furthest: 4
-        threshold_to_consider: 0.5
-        max_angle_to_furthest: 1.0
-        mode: 0
+      plugin: teb_local_planner::TebLocalPlannerROS
 
+      teb_autosize: 1.0
+      dt_ref: 0.1
+      dt_hysteresis: 0.02
+      max_samples: 500
+      global_plan_overwrite_orientation: False
+      allow_init_with_backwards_motion: False
+      max_global_plan_lookahead_dist: 2.0
+      global_plan_viapoint_sep: 3.0
+      global_plan_prune_distance: 1.0
+      exact_arc_length: False
+      feasibility_check_no_poses: 2
+      publish_feedback: False
+          
+      # Robot
+      max_vel_x: 1.0
+      max_vel_theta: 1.0
+      max_vel_y: 0.0
+      acc_lim_x: 2.5
+      acc_lim_theta: 2.0
+      min_turning_radius: 0.0
+      max_vel_x_backwards: 0.0
+
+      footprint_model: # types: "point", "circular", "two_circles", "line", "polygon"
+        type: "circular"
+        radius: 0.25 # for type "circular"
+
+      # GoalTolerance        
+      free_goal_vel: False
+          
+      # Obstacles     
+      min_obstacle_dist: 0.35
+      inflation_dist: 0.45
+      include_costmap_obstacles: True
+      costmap_obstacles_behind_robot_dist: 1.5
+      obstacle_poses_affected: 20
+
+      dynamic_obstacle_inflation_dist: 0.45
+      include_dynamic_obstacles: True 
+
+      # costmap_converter_plugin: "costmap_converter::CostmapToPolygonsDBSMCCH"
+      # costmap_converter_spin_thread: True
+      # costmap_converter_rate: 5
+
+      # Optimization          
+      no_inner_iterations: 6
+      no_outer_iterations: 5
+      optimization_activate: True
+      optimization_verbose: False
+      penalty_epsilon: 0.1
+      obstacle_cost_exponent: 4.0
+      weight_max_vel_x: 50.5
+      weight_max_vel_theta: 50.5
+      weight_acc_lim_x: 50.5
+      weight_acc_lim_theta: 50.5
+      weight_kinematics_nh: 10000.0
+      weight_kinematics_forward_drive: 10000.0
+      weight_kinematics_turning_radius: 1000.0
+      weight_optimaltime: 100.0 
+      weight_shortest_path: 0.0
+      weight_obstacle: 100.0
+      weight_inflation: 0.2
+      weight_dynamic_obstacle: 65.0 
+      weight_dynamic_obstacle_inflation: 0.1
+      weight_viapoint: 1.0
+      weight_adapt_factor: 2.0
+
+      # Homotopy Class Planner
+      enable_homotopy_class_planning: false
+      enable_multithreading: True
+      max_number_classes: 4
+      selection_cost_hysteresis: 5.0
+      selection_prefer_initial_plan: 1.0
+      selection_obst_cost_scale: 1.0
+      selection_alternative_time_cost: True
+
+      roadmap_graph_no_samples: 15
+      roadmap_graph_area_width: 5.0
+      roadmap_graph_area_length_scale: 1.0
+      h_signature_prescaler: 0.5
+      h_signature_threshold: 0.1
+      obstacle_heading_threshold: 0.45
+      switching_blocking_period: 0.0
+      viapoints_all_candidates: True
+      delete_detours_backwards: True
+      max_ratio_detours_duration_best_duration: 3.0
+      visualize_hc_graph: False
+      visualize_with_time_as_z_axis_scale: 0.0
+
+      # Recovery 
+      shrink_horizon_backup: True
+      shrink_horizon_min_duration: 10.0
+      oscillation_recovery: True
+      oscillation_v_eps: 0.1
+      oscillation_omega_eps: 0.1
+      oscillation_recovery_min_duration: 10.0
+      oscillation_filter_duration: 10.0
+      
 local_costmap:
   local_costmap:
     ros__parameters:
-      update_frequency: 5.0
-      publish_frequency: 2.0
-      global_frame: map
+      update_frequency: 20.0
+      publish_frequency: 20.0
+      global_frame: odom
       robot_base_frame: base_footprint
-      use_sim_time: True
+      use_sim_time: true
       rolling_window: true
       width: 3
       height: 3
-      resolution: 0.06
+      resolution: 0.05
       robot_radius: 0.25
-      plugins: ["obstacle_layer", "voxel_layer", "inflation_layer"]
+      plugins: ["obstacle_layer", "inflation_layer"]
       inflation_layer:
         plugin: "nav2_costmap_2d::InflationLayer"
-        cost_scaling_factor: 4.0
-        inflation_radius: 0.45
-      voxel_layer:
-        plugin: "nav2_costmap_2d::VoxelLayer"
-        enabled: True
-        publish_voxel_map: True
-        origin_z: 0.0
-        z_resolution: 0.05
-        z_voxels: 16
-        max_obstacle_height: 2.0
-        mark_threshold: 0
-        observation_sources: scan
-        scan:
-          topic: /scan
-          max_obstacle_height: 2.0
-          clearing: True
-          marking: True
-          data_type: "LaserScan"
-          raytrace_max_range: 3.0
-          raytrace_min_range: 0.0
-          obstacle_max_range: 2.5
-          obstacle_min_range: 0.0
+        cost_scaling_factor: 5.0
+        inflation_radius: 0.4
       obstacle_layer:
         plugin: "nav2_costmap_2d::ObstacleLayer"
         enabled: True
-        observation_sources: scan
+        observation_sources: scan_filtered
+        combination_method: 1
+        footprint_clearing_enabled: true
+        max_obstacle_height: 4.0
         scan:
-          topic: /scan
-          max_obstacle_height: 2.0
+          topic: /scan_filtered
+          sensor_frame: lidar_link
+          obstacle_max_range: 7.5
+          obstacle_min_range: 0.5
+          raytrace_max_range: 8.0
+          raytrace_min_range: 0.5
+          max_obstacle_height: 4.0
+          min_obstacle_height: 0.1
           clearing: True
           marking: True
           data_type: "LaserScan"
+          inf_is_valid: true
       static_layer:
         plugin: "nav2_costmap_2d::StaticLayer"
         map_subscribe_transient_local: True
@@ -182,57 +190,47 @@ local_costmap:
 global_costmap:
   global_costmap:
     ros__parameters:
-      update_frequency: 5.0
-      publish_frequency: 2.0
+      update_frequency: 1.0
+      publish_frequency: 1.0
       global_frame: map
       robot_base_frame: base_footprint
-      use_sim_time: False
+      use_sim_time: true
       robot_radius: 0.25
-      resolution: 0.06
+      resolution: 0.05
       track_unknown_space: true
-      plugins: ["static_layer", "obstacle_layer", "voxel_layer", "inflation_layer"]
+      plugins: ["static_layer", "obstacle_layer", "inflation_layer"]
       obstacle_layer:
         plugin: "nav2_costmap_2d::ObstacleLayer"
         enabled: True
-        observation_sources: scan
-        scan:
-          topic: /scan
-          max_obstacle_height: 2.0
-          clearing: True
-          marking: True
-          data_type: "LaserScan"
-          raytrace_max_range: 3.0
-          raytrace_min_range: 0.0
-          obstacle_max_range: 2.5
-          obstacle_min_range: 0.0
-      voxel_layer:
-        plugin: "nav2_costmap_2d::VoxelLayer"
-        enabled: True
-        publish_voxel_map: True
-        origin_z: 0.0
-        z_resolution: 0.05
-        z_voxels: 16
+        observation_sources: scan_filtered
         max_obstacle_height: 2.0
-        mark_threshold: 0
-        observation_sources: scan
+        footprint_clearing_enabled: true
+        combination_method: 1
         scan:
-          topic: /scan
+          topic: /scan_filtered
+          sensor_frame: lidar_link
           max_obstacle_height: 2.0
           clearing: True
           marking: True
           data_type: "LaserScan"
-          raytrace_max_range: 3.0
-          raytrace_min_range: 0.0
-          obstacle_max_range: 2.5
-          obstacle_min_range: 0.0
+          obstacle_max_range: 7.5
+          obstacle_min_range: 0.5
+          raytrace_max_range: 8.0
+          raytrace_min_range: 0.5
+          max_obstacle_height: 4.0
+          min_obstacle_height: 0.1
+          clearing: True
+          marking: True
+          data_type: "LaserScan"
+          inf_is_valid: true
       static_layer:
         plugin: "nav2_costmap_2d::StaticLayer"
         map_subscribe_transient_local: True
         #map_topic: /map
       inflation_layer:
         plugin: "nav2_costmap_2d::InflationLayer"
-        cost_scaling_factor: 1.0
-        inflation_radius: 0.35
+        cost_scaling_factor: 5.0
+        inflation_radius: 0.4
       always_send_full_costmap: True
 
 planner_server:  
@@ -263,6 +261,17 @@ behavior_server:
     global_costmap_topic: global_costmap/costmap_raw
     global_footprint_topic: global_costmap/published_footprint
     cycle_frequency: 10.0
+    # behavior_plugins: ["spin", "backup", "drive_on_heading", "wait", "assisted_teleop"]
+    # spin:
+    #   plugin: "nav2_behaviors/Spin" 
+    # backup:
+    #   plugin: "nav2_behaviors/BackUp" 
+    # drive_on_heading:
+    #   plugin: "nav2_behaviors/DriveOnHeading" 
+    # wait:
+    #   plugin: "nav2_behaviors/Wait" 
+    # assisted_teleop:
+    #   plugin: "nav2_behaviors/AssistedTeleop" 
     local_frame: odom
     global_frame: map
     robot_base_frame: base_footprint
@@ -290,8 +299,8 @@ velocity_smoother:
     smoothing_frequency: 20.0
     scale_velocities: False
     feedback: "OPEN_LOOP"
-    max_velocity: [0.26, 0.0, 1.0]
-    min_velocity: [-0.26, 0.0, -1.0]
+    max_velocity: [0.5, 0.0, 1.0]
+    min_velocity: [-0.5, 0.0, -1.0]
     max_accel: [2.5, 0.0, 3.2]
     max_decel: [-2.5, 0.0, -3.2]
     odom_topic: "odom"

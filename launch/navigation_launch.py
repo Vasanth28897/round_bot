@@ -14,7 +14,7 @@ def generate_launch_description():
     localization_params_file = os.path.join(pkg_share, 'config', 'localization.yaml')
     nav2_params_file = os.path.join(pkg_share, 'config', 'nav2_params.yaml')
     rviz_file = os.path.join(pkg_share, 'rviz', 'navigation.rviz')
-    map_yaml_file = os.path.join(pkg_share, 'maps', 'office_floor.yaml')  # the map file path can be given in the yaml file, if the map file path mentioned there, no need to give in the nav2_map_server node
+    map_yaml_file = os.path.join(pkg_share, 'maps', 'edifice.yaml')  # the map file path can be given in the yaml file, if the map file path mentioned there, no need to give in the nav2_map_server node
     
     use_sim_time = LaunchConfiguration('use_sim_time')
     autostart = LaunchConfiguration('autostart')
@@ -36,7 +36,34 @@ def generate_launch_description():
                   get_package_share_directory(package_name),'launch','bringup_launch.py'
               )]),
               launch_arguments={'rviz_launch': 'false'}.items() 
-  )
+    )
+
+    # frame id adder
+    pose_frame_id_adder = Node(
+      package='round_bot',
+      executable='pose_frame_id_adder.py',
+      name='pose_frame_id_adder',
+      output='screen',
+      parameters=[{'use_sim_time': True}],
+    )
+
+    # obstacle processor
+    obstacle_processor = Node(
+      package='round_bot',
+      executable='obstacle_processor.py',
+      name='obstacle_processor',
+      output='screen',
+      parameters=[{'use_sim_time': use_sim_time}],
+    )
+
+    # frame id adder
+    scan_filter_node = Node(
+      package='round_bot',
+      executable='scan_filter_node',
+      name='scan_filter_node',
+      output='screen',
+      parameters=[{'use_sim_time': True}],
+    )
 
     # Lifecycle Manager for localization
     localize_lifecycle_manager = Node(
@@ -73,7 +100,7 @@ def generate_launch_description():
       name='rviz2',
       arguments=['-d', rviz_file],
       output='screen',
-      parameters=[{'use_sim_time': use_sim_time}],
+      parameters=[{'use_sim_time': True}],
     )
     
     # Start Nav2 Nodes
@@ -148,15 +175,15 @@ def generate_launch_description():
       parameters=[{'autostart': autostart}, {'node_names': lifecycle_nodes_nav2}],
     )
 
-    # Create the launch description and populate it with the actions
     ld = LaunchDescription()
 
-    # Declare launch arguments
     ld.add_action(declare_use_sim_time_cmd)
     ld.add_action(declare_autostart_cmd)
 
-    # Add nodes to launch
     ld.add_action(bring_up)
+    ld.add_action(pose_frame_id_adder)
+    ld.add_action(obstacle_processor)
+    ld.add_action(scan_filter_node)
     ld.add_action(rviz_node)
     ld.add_action(nav2_map_server)
     ld.add_action(nav2_amcl)
