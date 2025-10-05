@@ -59,10 +59,10 @@ This package is created to simulate the dynamic obstacle avoidance using teb_loc
 * Here 2D lidar is used, Obviously the lidar data will fall on the model(person standing) and marks it as lethal obstacle. A custom node is written `scan_filter_node.cpp` to consider as a clear space, where the lidar data which is falling on the model poses. So it won't mark as a lethal obstacle during navigation.
 
 with Scan filter 
-![scan_filter_on](/home/vasanth/ros2_ws/src/round_bot/docs/scan_filter_on.gif)
+![scan_filter_on](https://github.com/Vasanth28897/round_bot/blob/new_gazebo_dynamic_obstacle/docs/scan_filter_on.gif)
 
 without Scan filter
-![scan_filter_on](/home/vasanth/ros2_ws/src/round_bot/docs/scan_filter_off.gif)
+![scan_filter_on](https://github.com/Vasanth28897/round_bot/blob/new_gazebo_dynamic_obstacle/docs/scan_filter_off.gif)
 
 
 ### Obstacle Avoidance
@@ -75,4 +75,4 @@ without Scan filter
     ros2 launch round_bot navigation_launch.py
     ```
 
-![dynamic_obstacle_avoiding](/home/vasanth/ros2_ws/src/round_bot/docs/avoid_dynamic_obstacle.gif)
+![dynamic_obstacle_avoiding](https://github.com/Vasanth28897/round_bot/blob/new_gazebo_dynamic_obstacle/docs/avoid_dynamic_obstacle.gif)
