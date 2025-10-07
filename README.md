@@ -47,9 +47,9 @@ This package is created to simulate the dynamic obstacle avoidance using teb_loc
     ```
 
 ## Localization
-* The gz.msgs.Pose_V message type from the gazebo has no frame id in the header. `pose_frame_id_adder.py` is written to add the frame id as `map`, so the navigation part works fine.
+* The gz.msgs.Pose_V message type from the gazebo has no frame id in the header. `pose_frame_id_adder.py` is written to add the frame id as `map`, so the navigation works.
 
-* AMCL (Adaptive (or KLD-sampling) Monte Carlo localization) is used here to localize the robot in the robot. It localizes automatically, because the `set_initial_pose` parameter is set as `true` in the `localizaton.yaml` file. 
+* AMCL (Adaptive (or KLD-sampling) Monte Carlo localization) is used here to localize the robot in the world. It localizes automatically, because the `set_initial_pose` parameter is set as `true` in the `localizaton.yaml` file. 
 
 ## Navigation
 ### Making the model as dynamic obstacle in the world
