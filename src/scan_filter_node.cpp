@@ -24,13 +24,13 @@ public:
     this->get_parameter("filter_mode", filter_mode_);
 
     scan_sub_ = this->create_subscription<sensor_msgs::msg::LaserScan>(
-      "/scan", 10, std::bind(&DynamicScanFilter::scanCallback, this, std::placeholders::_1));
+      "/scan", 1, std::bind(&DynamicScanFilter::scanCallback, this, std::placeholders::_1));
 
     pose_sub_ = this->create_subscription<geometry_msgs::msg::PoseArray>(
-      "/person_pose_info_with_frame", 10, std::bind(&DynamicScanFilter::poseCallback, this, std::placeholders::_1));
+      "/person_pose_info_with_frame", 1, std::bind(&DynamicScanFilter::poseCallback, this, std::placeholders::_1));
 
-    scan_pub_ = this->create_publisher<sensor_msgs::msg::LaserScan>("/scan_filtered", 10);
-    marker_pub_ = this->create_publisher<visualization_msgs::msg::Marker>("/scan_filter_marker", 10);
+    scan_pub_ = this->create_publisher<sensor_msgs::msg::LaserScan>("/scan_filtered", 1);
+    marker_pub_ = this->create_publisher<visualization_msgs::msg::Marker>("/scan_filter_marker", 1);
 
     RCLCPP_INFO(this->get_logger(), "Dynamic scan filter running. Radius=%.2f, Mode=%s", person_radius_, filter_mode_.c_str());
   }
@@ -69,14 +69,17 @@ private:
     }
 
     geometry_msgs::msg::PoseStamped person_pose_world, person_pose_lidar;
-    person_pose_world.header = msg->header;   
+    person_pose_world.header = msg->header;
+    person_pose_world.header.stamp = this->now();  // Sim time stamp   
     person_pose_world.pose = msg->poses[0];
-    person_pose_world.pose.position.x += 5.6;  // offset is provided, to mark exactly where the model is in the world
-
+     person_pose_world.pose.position.x -= 281.2;  // x offset is provided, to mark exactly where the model is in the edifice world
+    // person_pose_world.pose.position.x -= 281;  // x offset is provided, to mark exactly where the model is in the sonoma world
+    // person_pose_world.pose.position.y += 139;  // y offset is provided, to mark exactly where the model is in the sonoma world
+    
     bool transformed = false;
 
     try {
-      person_pose_lidar = tf_buffer_.transform(person_pose_world, "lidar_link", tf2::durationFromSec(0.2));
+      person_pose_lidar = tf_buffer_.transform(person_pose_world, "lidar_link", tf2::durationFromSec(0.2)); // 0.2
       transformed = true;
     }
     catch (tf2::TransformException &ex) {
@@ -105,6 +108,7 @@ private:
       person_valid_ = true;
 
       publishMarker(person_pose_world.header, person_pose_world.pose.position.x, person_pose_world.pose.position.y);
+      // RCLCPP_INFO(this->get_logger(), "Person in lidar frame: x=%.2f y=%.2f", person_x_, person_y_);
     }
   }
 
@@ -135,9 +139,9 @@ private:
     }
 
     if (person_valid_) {
-      // RCLCPP_INFO_THROTTLE(this->get_logger(),*this->get_clock(),1000,
-      //   "Filtered %d beams around person at (%.2f, %.2f) [lidar frame]",
-      //   beams_filtered, person_x_, person_y_);
+      RCLCPP_INFO_THROTTLE(this->get_logger(),*this->get_clock(),1000,
+        "Filtered %d beams around person at (%.2f, %.2f) [lidar frame]",
+        beams_filtered, person_x_, person_y_);
     }
 
     scan_pub_->publish(filtered_scan);
@@ -158,9 +162,11 @@ private:
     marker.pose.position.z = 0.0;
     marker.pose.orientation.w = 1.0;
 
-    marker.scale.x = person_radius_ * 0.5;
-    marker.scale.y = person_radius_ * 0.5;
-    marker.scale.z = 0.5;
+    // marker.scale.x = person_radius_ * 0.5;
+    // marker.scale.y = person_radius_ * 0.5;   
+    marker.scale.x = 1.0;
+    marker.scale.y = 1.0;
+    marker.scale.z = 1.0;
 
     marker.color.r = 1.0;
     marker.color.g = 0.0;

@@ -12,11 +12,9 @@ find_package(sensor_msgs REQUIRED)
 find_package(tf2_ros REQUIRED)
 find_package(tf2_geometry_msgs REQUIRED)
 find_package(visualization_msgs REQUIRED)
-# find_package(cartographer_ros REQUIRED)
-# find_package(cartographer_rviz REQUIRED)
 find_package(ignition-gazebo6 REQUIRED)
 find_package(ignition-math6 REQUIRED)
-find_package(costmap_converter_msgs REQUIRED)
+# find_package(costmap_converter_msgs REQUIRED)
 
 if(BUILD_TESTING)
   find_package(ament_lint_auto REQUIRED)
@@ -69,7 +67,7 @@ install(
 install(
   PROGRAMS
   src/obstacle_processor.py
-  src/pose_frame_id_adder.py  
+  src/pose_frame_id_adder.py 
   DESTINATION lib/${PROJECT_NAME}
 )
 

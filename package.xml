@@ -15,14 +15,11 @@
   <depend>sensor_msgs</depend>
   <depend>geometry_msgs</depend>
   <depend>visualization_msgs</depend>
-  <depend>costmap_converter_msgs</depend>
+  <!-- <depend>costmap_converter_msgs</depend> -->
 
   <depend>ros_gz_bridge</depend>
   <depend>ros_gz_image</depend>
   <depend>ros_gz_sim</depend>
-  
-  <!-- <depend>cartographer_ros</depend>
-  <depend>cartographer_rviz</depend> -->
 
   <test_depend>ament_lint_auto</test_depend>
   <test_depend>ament_lint_common</test_depend>

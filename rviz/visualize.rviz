@@ -7,7 +7,8 @@ Panels:
         - /Global Options1
         - /Status1
         - /TF1/Frames1
-      Splitter Ratio: 0.5
+        - /AerialMap1/Topic1
+      Splitter Ratio: 0.3430555462837219
     Tree Height: 456
   - Class: rviz_common/Selection
     Name: Selection
@@ -94,6 +95,11 @@ Visualization Manager:
           Show Axes: false
           Show Trail: false
           Value: true
+        gps_link:
+          Alpha: 1
+          Show Axes: false
+          Show Trail: false
+          Value: true
         imu_link:
           Alpha: 1
           Show Axes: false
@@ -139,6 +145,8 @@ Visualization Manager:
           Value: true
         front_caster_link:
           Value: false
+        gps_link:
+          Value: false
         imu_link:
           Value: false
         left_wheel:
@@ -164,6 +172,8 @@ Visualization Manager:
                 camera_link_optical:
                   {}
               front_caster_link:
+                {}
+              gps_link:
                 {}
               imu_link:
                 {}
@@ -192,8 +202,8 @@ Visualization Manager:
     - Alpha: 1
       Autocompute Intensity Bounds: true
       Autocompute Value Bounds:
-        Max Value: 11.984435081481934
-        Min Value: 1.3371813297271729
+        Max Value: 7.481700897216797
+        Min Value: -7.234644412994385
         Value: true
       Axis: X
       Channel Name: intensity
@@ -223,40 +233,23 @@ Visualization Manager:
       Use Fixed Frame: true
       Use rainbow: true
       Value: true
-    - Alpha: 1
-      Autocompute Intensity Bounds: true
-      Autocompute Value Bounds:
-        Max Value: 5.704443454742432
-        Min Value: -3.875981330871582
-        Value: true
-      Axis: X
-      Channel Name: intensity
-      Class: rviz_default_plugins/PointCloud2
-      Color: 255; 255; 255
-      Color Transformer: AxisColor
-      Decay Time: 0
+    - Alpha: 0.699999988079071
+      Blocks: 3
+      Class: rviz_satellite/AerialMap
+      Draw Behind: false
       Enabled: true
-      Invert Rainbow: false
-      Max Color: 255; 255; 255
-      Max Intensity: 0
-      Min Color: 0; 0; 0
-      Min Intensity: 0
-      Name: velodyne_points
-      Position Transformer: XYZ
-      Selectable: true
-      Size (Pixels): 5
-      Size (m): 0.05000000074505806
-      Style: Points
+      Name: AerialMap
+      Object URI: ""
+      TF tolerance: 0.10000000149011612
+      Timeout: 3
       Topic:
         Depth: 5
-        Durability Policy: Volatile
-        Filter size: 10
+        Durability Policy: Transient Local
         History Policy: Keep Last
         Reliability Policy: Reliable
-        Value: /velodyne_points
-      Use Fixed Frame: true
-      Use rainbow: true
+        Value: /navsat/fix
       Value: true
+      Zoom: 16
   Enabled: true
   Global Options:
     Background Color: 48; 48; 48
@@ -303,25 +296,25 @@ Visualization Manager:
   Views:
     Current:
       Class: rviz_default_plugins/Orbit
-      Distance: 7.459054470062256
+      Distance: 24.961088180541992
       Enable Stereo Rendering:
         Stereo Eye Separation: 0.05999999865889549
         Stereo Focal Distance: 1
         Swap Stereo Eyes: false
         Value: false
       Focal Point:
-        X: -1.1648095846176147
-        Y: 0.4572400450706482
-        Z: 1.1468636989593506
+        X: -1.3873556852340698
+        Y: -0.23701044917106628
+        Z: 0.5131642818450928
       Focal Shape Fixed Size: true
       Focal Shape Size: 0.05000000074505806
       Invert Z Axis: false
       Name: Current View
       Near Clip Distance: 0.009999999776482582
-      Pitch: 0.4947972893714905
+      Pitch: 0.4047970175743103
       Target Frame: <Fixed Frame>
       Value: Orbit (rviz)
-      Yaw: 3.088589906692505
+      Yaw: 3.1385889053344727
     Saved: ~
 Window Geometry:
   Displays:
@@ -341,5 +334,5 @@ Window Geometry:
   Views:
     collapsed: true
   Width: 902
-  X: 143
-  Y: 124
+  X: 176
+  Y: 137

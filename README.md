@@ -1,28 +1,25 @@
-# Round Bot
-This package is created to simulate the dynamic obstacle avoidance using teb_local_planner in the simulation. This round bot uses the diff_drive system plugin. 
+# Round Bot in OUTDOOR 
+This package is to implement the GPS localization and gps based waypoint follower in the outdoor simulated environment using ros2 navigation stack and 
+dynamic obstacle avoidance using MPPI controller. 
 
 ## Requirements
 * Ubuntu - 22.04
 * ROS2 - Humble
 * Igntion gazebo - Gazebo fortress(Gazebo sim version 6.17.0)
-* Timed Elastic Band(TEB) Local Planner
 
 ### Steps to build
 * Create a workspace 
 * Clone this round_bot repo under the src directory
-* Clone the teb_local_planner(humble-devel branch) and costmap_converter(humble branch) package under the src directory.
     ```
-    git clone -b humble-devel https://github.com/rst-tu-dortmund/teb_local_planner.git
+    git repo -b round_bot_in_outdoor https://github.com/Vasanth28897/round_bot.git
     ```
-    ```
-    git clone -b humble https://github.com/rst-tu-dortmund/costmap_converter.git
-    ```
+
 * Build the workspace
 
-* To drive and play with the round_bot, launch this command
+* To spwan the robot in the world, launch this command
 
     ```bash
-    ros2 launch round_bot bringup_launch.py
+    ros2 launch round_bot bringup.launch.py
     ```
 
 * Drive the round_bot using this command in the terminal
@@ -31,49 +28,37 @@ This package is created to simulate the dynamic obstacle avoidance using teb_loc
     ros2 run teleop_twist_keyboard teleop_twist_keyboard
     ```
 
-## Model added in thes sdf file
-* There is a model named(person standing) is added in the `edifice.sdf` file. The model is available [here](https://app.gazebosim.org/OpenRobotics/fuel/models/Standing%20person). Download this model, and place it under this directory `/home/user/.ignition/fuel/fuel.gazebosim.org/openrobotics/models`. 
+## Model added in the sdf file
+* There is a model named(person standing) is added in the `sonoma.sdf` file. The model is available [here](https://app.gazebosim.org/OpenRobotics/fuel/models/Standing%20person). Download this model, and place it under this directory `/home/user/.ignition/fuel/fuel.gazebosim.org/openrobotics/models`. 
 
-* To generate a map, use this command(use the teleop_twist_keyboard to drive the robot and map the world). while generating the map, remember to comment out the include tag for the model in the edifice.sdf file.
+## Localization using GPS + IMU + Odometry
+* Because of localizing the robot using GPS we don't need to use AMCL and map_server to localize, this is where the `EKF` and `Navsat` comes in and fuses the three and helps to localize the robot accurately in the outdoor environment. The `dual_ekf_navsat_params.yaml` under the `config` directory and `bringup.launch.py` is included in this launch file. Uncomment the rviz node if you want to open it.
 
-    ```bash
-    ros2 launch round_bot slam_launch.py
+    ```
+    ros2 launch round_bot dual_ekf_navast.launch.py
     ```
 
-* Use this command to save the map file after mapping is generated
-
-    ```bash
-    ros2 run nav2_map_server map_saver_cli -f map_folder/map_file_name
+## Mapviz
+* To make sure the localization is done or not, using mapviz we can make sure the robot is localized. To visualize the satellite map for the world we can use the `Stadiamaps` on mapviz. `gps_wpf_demo.mvc` file is configured for it. 
     ```
-
-## Localization
-* The gz.msgs.Pose_V message type from the gazebo has no frame id in the header. `pose_frame_id_adder.py` is written to add the frame id as `map`, so the navigation works.
-
-* AMCL (Adaptive (or KLD-sampling) Monte Carlo localization) is used here to localize the robot in the world. It localizes automatically, because the `set_initial_pose` parameter is set as `true` in the `localizaton.yaml` file. 
+    ros2 launch round_bot mapviz.launch.py
+    ```
+![gps localization & Mapviz](https://github.com/Vasanth28897/round_bot/blob/new_gazebo_dynamic_obstacle/docs/gps_localization_and_mapviz.png)
 
 ## Navigation
-### Making the model as dynamic obstacle in the world
-* The model(person standing) is added in the world, to make the model move and make it dynamic, a custom plugin `move_model.cpp` is written and the plugin is included in the `edifice.sdf` file. Which makes the model moves in loop along the given waypoints.
-
-### Removing Lidar Data 
-* Here 2D lidar is used, Obviously the lidar data will fall on the model(person standing) and marks it as lethal obstacle. A custom node is written `scan_filter_node.cpp` to consider as a clear space, where the lidar data which is falling on the model poses. So it won't mark as a lethal obstacle during navigation.
-
-with Scan filter 
-![scan_filter_on](https://github.com/Vasanth28897/round_bot/blob/new_gazebo_dynamic_obstacle/docs/scan_filter_on.gif)
-
-without Scan filter
-![scan_filter_on](https://github.com/Vasanth28897/round_bot/blob/new_gazebo_dynamic_obstacle/docs/scan_filter_off.gif)
-
-
-### Obstacle Avoidance
-* TEB local planner subscribes the `/obstacles` topic which has the ObsatcleArrayMsg data for the obstacles position and orientation datas of the dynamic obstacles. `obstacle_processor.py` subscribes the topic `/person_pose_info_with_frame` and publishes the topic 
-`/obstacles`. Now the teb always knows where the dynamic obstacle is in the world, avoid if its in the way.
-
-* To run the navigation, use this below command (Note : Don't forget to add the map_filename.yaml file in the navigation_launch.py file). `pose_frame_id_adder`, `scan_filter_node` and `obstacle_processor` node are included in the `navigation_launch.py` file.
-
-    ```bash
-    ros2 launch round_bot navigation_launch.py
+* There are no pre-generated maps used, `staic_layer`s are removed in both `local_costmap` and `global_costmaps`. Right now `MPPI controller` is used in the `controller_server`. There are some issues come along when TEB is used. I am working on it to solve that. 
+    ```
+    ros2 launch round_bot navigation_no_map.launch.py
     ```
 
-## Navigation demo
-![dynamic_obstacle_avoiding](https://github.com/Vasanth28897/round_bot/blob/new_gazebo_dynamic_obstacle/docs/avoid_dynamic_obstacle.gif)
+![navigation](https://github.com/Vasanth28897/round_bot/blob/new_gazebo_dynamic_obstacle/docs/navigation.png)
+
+
+## Task completed so far
+* GPS localization is working
+* Static obstacle avoidance is done and for dynamic obstacle avoidance still need to tune the parameters. NOTE: My machine is not much capable of running high computation background work. Normally the real-time-factor in gazebo is like 70% in my system. when i include the dynamic model in the world, it does high computation. The real-time-factor goes down to 25%, which is not good for smooth performance. Therefore, i barely noticed the dynamic obstalce avoidance is working fine or not. But i tuned the parameter for that. If you have machine which is capable of running high computation with graphics card, please let me know, whether the dynamic obstacle is working good or still need to tune parameter which makes it work.
+* MPPI controller is used in the local planner(no modifications done in the code, but tuning the parameters mostly make the planner works perfect). 
+
+## Task not completed yet
+* GPS based Waypoint follower(working on it).
+* I am trying to implement the dynamic obstacle avoidance using TEB local planner, but it is so senstitive to timestamps when looking up transforms. I am wokring on it. If that issue is solved, i can use the TEB.

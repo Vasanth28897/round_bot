@@ -18,13 +18,6 @@
   gz_type_name: "gz.msgs.LaserScan"
   direction: GZ_TO_ROS
 
-# gz topic published by 3d lidar plugin
-- ros_topic_name: "velodyne_points"
-  gz_topic_name: "velodyne_points/points"
-  ros_type_name: "sensor_msgs/msg/PointCloud2"
-  gz_type_name: "gz.msgs.PointCloudPacked"
-  direction: GZ_TO_ROS
-
 # gz topic published by Sensors plugin (Camera)
 - ros_topic_name: "camera/image_raw"
   gz_topic_name: "camera/image_raw"
@@ -61,10 +54,18 @@
   gz_type_name: "gz.msgs.Model"
   direction: GZ_TO_ROS 
 
-# Gazebo world pose info
+# # Gazebo world pose info
 - ros_topic_name: "person_pose_info"
-  gz_topic_name: "/world/Edifice/dynamic_pose/info"
+  # gz_topic_name: "world/Edifice/dynamic_pose/info"
+  gz_topic_name: "world/sonoma/dynamic_pose/info"
   ros_type_name: "geometry_msgs/msg/PoseArray"
   gz_type_name: "gz.msgs.Pose_V"
+  direction: GZ_TO_ROS
+
+# gz topic published by gpu plugin
+- ros_topic_name: "navsat/fix"
+  gz_topic_name: "/navsat/fix"
+  ros_type_name: "sensor_msgs/msg/NavSatFix"
+  gz_type_name: "gz.msgs.NavSat"
   direction: GZ_TO_ROS
 

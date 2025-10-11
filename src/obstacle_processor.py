@@ -22,7 +22,8 @@ class ObstacleProcessor(Node):
 			return
 
 		pose = msg.poses[0]  # There is only one dynamic obstacle(standing person) added in the world 
-		idx = 4               # Known obstacle id which is in the world
+		# idx = 4               # Known obstacle id which is in the edifice world
+		idx = 4              		# Known obstacle id which is in the sonoma.sdf world
 		msg_t_stamp = msg.header.stamp
 
 		obstacle_arr_msg = ObstacleArrayMsg()
