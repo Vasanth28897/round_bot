@@ -43,7 +43,7 @@ dynamic obstacle avoidance using MPPI controller.
     ```
     ros2 launch round_bot mapviz.launch.py
     ```
-![gps localization & Mapviz](https://github.com/Vasanth28897/round_bot/blob/new_gazebo_dynamic_obstacle/docs/gps_localization_and_mapviz.png)
+![gps localization & Mapviz](https://github.com/Vasanth28897/round_bot/blob/round_bot_in_outdoor/docs/gps_localization_and_mapviz.png)
 
 ## Navigation
 * There are no pre-generated maps used, `staic_layer`s are removed in both `local_costmap` and `global_costmaps`. Right now `MPPI controller` is used in the `controller_server`. There are some issues come along when TEB is used. I am working on it to solve that. 
@@ -51,8 +51,7 @@ dynamic obstacle avoidance using MPPI controller.
     ros2 launch round_bot navigation_no_map.launch.py
     ```
 
-![navigation](https://github.com/Vasanth28897/round_bot/blob/new_gazebo_dynamic_obstacle/docs/navigation.png)
-
+![navigation](https://github.com/Vasanth28897/round_bot/blob/round_bot_in_outdoor/docs/navigation.png)
 
 ## Task completed so far
 * GPS localization is working
