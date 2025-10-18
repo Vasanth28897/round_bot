@@ -27,7 +27,7 @@ def generate_launch_description():
     executable="ekf_node",
     name="ekf_filter_node_odom",
     output="screen",
-    parameters=[robot_localization_params_file, {"use_sim_time": True}],
+    parameters=[robot_localization_params_file, {'use_sim_time': True}],
     remappings=[("odometry/filtered", "odometry/local")],
   ) 
 
@@ -36,7 +36,7 @@ def generate_launch_description():
     executable="ekf_node",
     name="ekf_filter_node_map",
     output="screen",
-    parameters=[robot_localization_params_file, {"use_sim_time": True}],
+    parameters=[robot_localization_params_file, {'use_sim_time': True}],
     remappings=[("odometry/filtered", "odometry/global")],
   ) 
 
@@ -45,7 +45,7 @@ def generate_launch_description():
     executable="navsat_transform_node",
     name="navsat_transform",
     output="screen",
-    parameters=[robot_localization_params_file, {"use_sim_time": True}],
+    parameters=[robot_localization_params_file, {'use_sim_time': True}],
     remappings=[
       ("imu", "imu"),
       ("gps/fix", "navsat/fix"),

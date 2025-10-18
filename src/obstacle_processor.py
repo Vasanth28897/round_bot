@@ -46,8 +46,8 @@ class ObstacleProcessor(Node):
 		obstacle_msg.orientation = pose.orientation
 		obstacle_msg.velocities = velocity
 		obstacle_msg.polygon.points = [
-			Point32(x=pose.position.x + 5.6, 
-					 y=pose.position.y, 
+			Point32(x=pose.position.x - 2.0, #+ 5.6 
+					 y=pose.position.y + 2.5, 
 					 z=pose.position.z)
 		]
 
@@ -76,8 +76,8 @@ class ObstacleProcessor(Node):
 		marker.color = ColorRGBA(r=0.0, g=1.0, b=0.0, a=1.0)  # Green
 			# added this 5.6 because there is an offset between the map and world
 			# (5.6 in x is where the robot is spawned in the world see the navigation_launch.py file)
-		marker.pose.position.x = pose.position.x + 5.6
-		marker.pose.position.y = pose.position.y
+		marker.pose.position.x = pose.position.x -2.0 #+ 5.6
+		marker.pose.position.y = pose.position.y + 2.5 
 		marker.pose.position.z = pose.position.z
 		marker.pose.orientation = pose.orientation  
 		marker.lifetime = Duration(seconds=0.2).to_msg()

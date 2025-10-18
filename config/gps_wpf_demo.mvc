@@ -58,3 +58,14 @@ displays:
       draw_style: points
       position_tolerance: 0
       buffer_size: 1
+  - type: mapviz_plugins/path
+    name: global_plan
+    config:   
+      visible: true
+      collapsed: false
+      topic: /plan 
+      color: "#ff0000"
+      draw_style: lines
+      line_width: 4
+      buffer_size: 10
+      position_tolerance: 0

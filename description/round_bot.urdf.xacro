@@ -74,7 +74,7 @@
             <soft_erp>0.2</soft_erp>
             <kp>1e+5</kp>
             <kd>1</kd>
-            <max_vel>0.01</max_vel>
+            <max_vel>1.0</max_vel>
             <min_depth>0.001</min_depth>
           </bullet>
         </contact>
@@ -126,7 +126,7 @@
             <soft_erp>0.2</soft_erp>
             <kp>1e+5</kp>
             <kd>1</kd>
-            <max_vel>0.01</max_vel>
+            <max_vel>1.0</max_vel>
             <min_depth>0.001</min_depth>
           </bullet>
         </contact>
@@ -162,7 +162,7 @@
       <geometry>
         <sphere radius="${caster_radius}"/>
       </geometry>
-      <contact_coefficients mu="0" kp="1000.0" kd="1.0"/>
+      <contact_coefficients mu="0.1" kp="1000.0" kd="1.0"/>
       <surface>
         <contact>
           <bullet>
@@ -206,7 +206,7 @@
       <geometry>
         <sphere radius="${caster_radius}"/>
       </geometry>
-      <contact_coefficients mu="0" kp="1000.0" kd="1.0"/>
+      <contact_coefficients mu="0.1" kp="1000.0" kd="1.0"/>
       <surface>
         <contact>
           <bullet>
@@ -228,6 +228,35 @@
   <gazebo reference = "back_caster_link">
     <material>Gazebo/Red</material>
   </gazebo> 
+
+  <!-- <joint name="mount_joint" type="fixed">
+    <parent link="chassis"/>
+    <child link="mount_link"/>
+    <origin xyz="0.15 0.0 0.18" rpy="0.0 0.0 0.0"/>
+  </joint>
+
+  <link name="mount_link">
+    <visual>                     
+      <geometry>
+        <cylinder radius="${mount_radius}" length="${mount_length}"/>
+      </geometry>
+      <material name="Black">
+        <color rgba="0.0 0.0 0.0 1.0"/>
+      </material>
+    </visual>
+    <collision>
+      <geometry>
+        <cylinder radius="${mount_radius}" length="${mount_length}"/>
+      </geometry>
+    </collision>
+    <xacro:inertial_mount_cylinder mount_mass="${mount_mass}" mount_length="${mount_length}" mount_radius="${mount_radius}"> 
+      <origin xyz="0 0 0" rpy="0 0 0"/>
+    </xacro:inertial_mount_cylinder>
+  </link> 
+
+  <gazebo reference = "mount_link">
+    <material>Gazebo/Black</material>
+  </gazebo> -->
 
   <joint name="gps_joint" type="fixed">
     <origin xyz="0.0 0.0 0.17" rpy="0 0 0"/>
@@ -384,7 +413,7 @@
   <gazebo reference="camera_link">
     <material> Gazebo/Blue</material>
     <sensor type="camera" name="camera">
-      <update_rate>10.0</update_rate>
+      <update_rate>50.0</update_rate>
       <camera name="head">
         <camera_info_topic>camera/camera_info</camera_info_topic>
           <horizontal_fov>1.3962634</horizontal_fov>
@@ -437,7 +466,7 @@
     <sensor name="hls_lfcd_lds" type="gpu_lidar">
       <pose> 0 0 0 0 0 0 </pose>
       <always_on>true</always_on>
-      <update_rate>30.0</update_rate>
+      <update_rate>50.0</update_rate>
       <lidar>
         <scan>
           <horizontal>
@@ -508,11 +537,11 @@
       <right_joint>right_wheel_joint</right_joint>
       <wheel_separation>0.36</wheel_separation>
       <wheel_radius>0.08</wheel_radius>
-      <max_linear_acceleration>1</max_linear_acceleration>
-      <min_linear_acceleration>-1</min_linear_acceleration>
-      <max_angular_acceleration>2</max_angular_acceleration>
-      <min_angular_acceleration>-2</min_angular_acceleration>
-      <max_linear_velocity>2.5</max_linear_velocity>
+      <max_linear_acceleration>10</max_linear_acceleration>
+      <min_linear_acceleration>-10</min_linear_acceleration>
+      <max_angular_acceleration>10</max_angular_acceleration>
+      <min_angular_acceleration>-10</min_angular_acceleration>
+      <max_linear_velocity>1.5</max_linear_velocity>
       <min_linear_velocity>0.0</min_linear_velocity>
       <max_angular_velocity>1.5</max_angular_velocity>
       <min_angular_velocity>-1.5</min_angular_velocity>
@@ -520,7 +549,8 @@
       <child_frame_id>base_footprint</child_frame_id>
       <odom_topic>odom</odom_topic>
       <odom_publisher_frequency>50</odom_publisher_frequency>
-      <tf_topic>/tf</tf_topic>
+      <!-- comment this below one when you are using navigation, because we are letting ros to handle tf-->
+      <!-- <tf_topic>/tf</tf_topic> -->
       <topic>cmd_vel</topic>
     </plugin>
 

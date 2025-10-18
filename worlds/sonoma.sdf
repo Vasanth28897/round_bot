@@ -72,7 +72,7 @@
         <scene>scene</scene>
         <ambient_light>0.4 0.4 0.4</ambient_light>
         <background_color>0.5 0.8 0.95</background_color>
-        <camera_pose>275.46 -134.65 4.18 0.0 0.0 -0.6</camera_pose>
+        <camera_pose>-2.0 0.0 3.0 0.0 0.0 -0.6</camera_pose>
         <!-- <camera_follow>
           <target>round_bot</target>
           <p_gain>0.5</p_gain>
@@ -185,166 +185,79 @@
       <uri>
       https://fuel.gazebosim.org/1.0/OpenRobotics/models/Standing person
       </uri>
-      <pose>300 -153 2.45 0 0 -2.3</pose>
-      <plugin
-        filename="move_model" name="round_bot::MoveModel">
-        <loop>true</loop>
-        # comment from here
-        <waypoint>
-          <time>0</time>
-          <pose>310 -162.17 2.1 0 0 -2.3</pose>
-        </waypoint>
-        <waypoint>
-          <time>4</time>
-          <pose>307 -158 2.15 0 0 -2.3</pose>
-        </waypoint>
-        <waypoint>
-          <time>8</time>
-          <pose>303 -156 2.15 0 0 -2.3</pose>
-        </waypoint> 
-        # comment 
-        <waypoint>
-          <time>0</time>
-          <pose>300 -153 2.45 0 0 -2.3</pose>
-        </waypoint>
-        <waypoint>
-          <time>4</time>
-          <pose>296 -150 2.45 0 0 -2.3</pose>
-        </waypoint>
-        <waypoint>
-          <time>8</time>
-          <pose>292 -147 2.55 0 0 -2.3</pose>
-        </waypoint>
-        <waypoint>
-          <time>12</time>
-          <pose>289 -145 2.6 0 0 -2.3</pose>
-        </waypoint>
-        <waypoint>
-          <time>16</time>
-          <pose>285 -142 2.7 0 0 -2.3</pose>
-        </waypoint>
-        <waypoint>
-          <time>20</time>
-          <pose>285 -142 2.7 0 0 0.85</pose>
-        </waypoint>
-        <waypoint>
-          <time>24</time>
-          <pose>289 -145 2.6 0 0 0.85</pose>
-        </waypoint>
-        <waypoint>
-          <time>28</time>
-          <pose>292 -147 2.55 0 0 0.85</pose>
-        </waypoint>
-        <waypoint>
-          <time>32</time>
-          <pose>296 -150 2.45 0 0 0.85</pose>
-        </waypoint>
-        <waypoint>
-          <time>36</time>
-          <pose>300 -153 2.45 0 0 0.85</pose>
-        </waypoint>
-        # comment
-        <waypoint>
-          <time>52</time>
-          <pose>303 -156 2.15 0 0 0.85</pose>
-        </waypoint>
-        <waypoint>
-          <time>56</time>
-          <pose>307 -158 2.15 0 0 0.85</pose>
-        </waypoint>
-        <waypoint>
-          <time>60</time>
-          <pose>310 -162.17 2.1 0 0 0.85</pose> 
-        </waypoint>
-        # comment
-      </plugin>
-    </include> -->
-
-    <include>
-      <uri>
-      https://fuel.gazebosim.org/1.0/OpenRobotics/models/Standing person
-      </uri>
-      <pose>285 -134 2.77 0 0 0</pose>
+      <pose>5 3.5 0.35 0 0 0</pose>
       <plugin
         filename="move_model" name="round_bot::MoveModel">
         <loop>true</loop>
         <waypoint>
           <time>0</time>
-          <pose>285 -134 2.77 0 0 0</pose>
+          <pose>5 3.5 0.35 0 0 0</pose>
         </waypoint>
         <waypoint>
           <time>2</time>
-          <pose>285 -136 2.74 0 0 0</pose>
+          <pose>5 2.5 0.34 0 0 0</pose>
         </waypoint>
         <waypoint>
           <time>4</time>
-          <pose>285 -138 2.73 0 0 0</pose>
+          <pose>5 0.5 0.31 0 0 0</pose>
         </waypoint>
         <waypoint>
           <time>8</time>
-          <pose>285 -140 2.68 0 0 0</pose>
+          <pose>5 -2.5 0.27 0 0 0</pose>
         </waypoint>
         <waypoint>
           <time>10</time>
-          <pose>285 -142 2.68 0 0 0</pose>
+          <pose>5 -4.5 0.24 0 0 0</pose>
         </waypoint>
         <waypoint>
           <time>12</time>
-          <pose>285 -144 2.68 0 0 0</pose>
+          <pose>5 -6.5 0.22 0 0 0</pose>
         </waypoint>
         <waypoint>
           <time>14</time>
-          <pose>285 -146 2.63 0 0 0</pose>
+          <pose>5 -8.5 0.19 0 0 0</pose>
         </waypoint>
         <waypoint>
           <time>16</time>
-          <pose>285 -148 2.63 0 0 0</pose>
+          <pose>5 -10.5 0.17 0 0 0</pose>
         </waypoint>
         <waypoint>
           <time>18</time>
-          <pose>285 -149 2.63 0 0 0</pose>
+          <pose>5 -10.5 0.17 0 0 3.14</pose>
         </waypoint>
         <waypoint>
           <time>20</time>
-          <pose>285 -149 2.63 0 0 3.14</pose>
+          <pose>5 -8.5 0.19 0 0 3.14</pose>
         </waypoint>
         <waypoint>
           <time>22</time>
-          <pose>285 -148 2.63 0 0 3.14</pose>
+          <pose>5 -6.5 0.22 0 0 3.14</pose>
         </waypoint>
         <waypoint>
           <time>24</time>
-          <pose>285 -146 2.63 0 0 3.14</pose>
+          <pose>5 -4.5 0.24 0 0 3.14</pose>
         </waypoint>
         <waypoint>
           <time>26</time>
-          <pose>285 -144 2.66 0 0 3.14</pose>
+          <pose>5 -2.5 0.27 0 0 3.14</pose>
         </waypoint>
         <waypoint>
           <time>28</time>
-          <pose>285 -142 2.68 0 0 3.14</pose>
+          <pose>5 0.5 0.31 0 0 3.14</pose>
         </waypoint>
         <waypoint>
           <time>30</time>
-          <pose>285 -140 2.68 0 0 3.14</pose>
+          <pose>5 2.5 0.34 0 0 3.14</pose>
         </waypoint>
         <waypoint>
           <time>32</time>
-          <pose>285 -138 2.73 0 0 3.14</pose>
-        </waypoint>
-        <waypoint>
-          <time>34</time>
-          <pose>285 -136 2.75 0 0 3.14</pose>
-        </waypoint>
-        <waypoint>
-          <time>36</time>
-          <pose>285 -134 2.78 0 0 3.14</pose>
+          <pose>5 3.5 0.35 0 0 3.14</pose>
         </waypoint>
       </plugin>
-    </include>
+    </include> -->
 
     <model name="box">
-      <pose>288 -141 3.1 0 0 0</pose>
+      <pose>2.5 -0.5 0.85 0 0 0</pose>
       <link name="box_link">
         <inertial>
           <inertia>
@@ -381,7 +294,7 @@
     </model>
 
     <model name="cylinder">
-      <pose>290 -149 3.0 0 0 0</pose>
+      <pose>-0.5 -2.5 0.9 0 0 0</pose>
       <link name="cylinder_link">
         <inertial>
           <inertia>
@@ -420,7 +333,7 @@
     </model>
 
     <model name="box1">
-      <pose>270 -132 3.5 0 0 0</pose>
+      <pose>4.0 -4.0 0.8 0 0 0</pose>
       <link name="box_link">
         <inertial>
           <inertia>
@@ -459,6 +372,7 @@
     <include>
       <!-- <uri>https://fuel.ignitionrobotics.org/1.0/openrobotics/models/Sonoma Raceway</uri> -->
       <uri>https://fuel.gazebosim.org/1.0/openrobotics/models/Sonoma Raceway</uri>
+      <pose>-287.5 143.5 -7 0 0 0</pose>
     </include>
   </world>
 </sdf>

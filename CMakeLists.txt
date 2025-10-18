@@ -57,7 +57,6 @@ install(
     rviz 
     config
     worlds
-    maps
     plugins
     src
   DESTINATION 
@@ -68,6 +67,8 @@ install(
   PROGRAMS
   src/obstacle_processor.py
   src/pose_frame_id_adder.py 
+  src/logged_waypoint_follower.py
+  src/interactive_waypoint_follower.py
   DESTINATION lib/${PROJECT_NAME}
 )
 

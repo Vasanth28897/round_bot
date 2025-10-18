@@ -1,0 +1,30 @@
+# Origin (ENU reference, from your SDF):
+# latitude_deg:  38.161479
+# longitude_deg: -122.454630
+
+# We’ll now convert your local ENU waypoints (x, y, yaw) → GPS (latitude, longitude, yaw) 
+# using the standard small-angle ENU to geodetic approximation:
+
+# lat = lat0 + ( y / 111111)
+# lon = lon0 + (x / 111111 - cost(lat0))
+
+waypoints:
+  - latitude: 38.1614574
+    longitude: -122.454545
+    yaw: 2.4
+  - latitude: 38.1614817
+    longitude: -122.454631
+    yaw: -1.6
+  - latitude: 38.1614278
+    longitude: -122.454633
+    yaw: 0.0
+  - latitude: 38.1614385
+    longitude: -122.454546
+    yaw: 0.4
+
+#waypoints 	x (m)	  |  y (m) |	yaw (rad)	|  Latitude	  |  Longitude
+#---------|-------- | ------ |------------|------------ | ------------
+#   1	    |   7.46  |	-2.40	 |   2.4	    |  38.1614574	|  -122.454545
+#   2	    |   0.10  |	 0.30	 |  -1.6	    |  38.1614817	|  -122.454631
+#   3	    |  -0.40  |	-5.80	 |   0.0	    |  38.1614278	|  -122.454633
+#   4	    |   7.30  |	-4.50	 |   0.4	    |  38.1614385	|  -122.45454

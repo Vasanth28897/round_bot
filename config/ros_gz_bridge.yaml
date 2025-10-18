@@ -32,14 +32,15 @@
   gz_type_name: "gz.msgs.Odometry"
   direction: GZ_TO_ROS
 
-# gz topic published by DiffDrive plugin
-- ros_topic_name: "tf"
-  gz_topic_name: "tf"
-  ros_type_name: "tf2_msgs/msg/TFMessage"
-  gz_type_name: "gz.msgs.Pose_V"
-  direction: GZ_TO_ROS
+# comment this when you want to run navigation because of letting ROS-side components(EKF / robot_state_publisher) tf published
+# using this and ros side causes the timstamp mimatches from both tf's
+# - ros_topic_name: "tf"
+#   gz_topic_name: "tf"
+#   ros_type_name: "tf2_msgs/msg/TFMessage"
+#   gz_type_name: "gz.msgs.Pose_V"
+#   direction: GZ_TO_ROS
 
-# gz topic subscribed to by DiffDrive plugin
+
 # - ros_topic_name: "diff_drive_base_controller/cmd_vel_unstamped"
 - ros_topic_name: "cmd_vel"
   gz_topic_name: "cmd_vel"
@@ -62,7 +63,7 @@
   gz_type_name: "gz.msgs.Pose_V"
   direction: GZ_TO_ROS
 
-# gz topic published by gpu plugin
+# gz topic published by gps plugin
 - ros_topic_name: "navsat/fix"
   gz_topic_name: "/navsat/fix"
   ros_type_name: "sensor_msgs/msg/NavSatFix"

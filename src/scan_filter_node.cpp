@@ -72,14 +72,13 @@ private:
     person_pose_world.header = msg->header;
     person_pose_world.header.stamp = this->now();  // Sim time stamp   
     person_pose_world.pose = msg->poses[0];
-     person_pose_world.pose.position.x -= 281.2;  // x offset is provided, to mark exactly where the model is in the edifice world
-    // person_pose_world.pose.position.x -= 281;  // x offset is provided, to mark exactly where the model is in the sonoma world
-    // person_pose_world.pose.position.y += 139;  // y offset is provided, to mark exactly where the model is in the sonoma world
+    person_pose_world.pose.position.x -= 2.0;  // x offset is provided
+    person_pose_world.pose.position.y += 2.5;  // y offset is provided
     
     bool transformed = false;
 
     try {
-      person_pose_lidar = tf_buffer_.transform(person_pose_world, "lidar_link", tf2::durationFromSec(0.2)); // 0.2
+      person_pose_lidar = tf_buffer_.transform(person_pose_world, "lidar_link", tf2::durationFromSec(0.1)); // 0.2
       transformed = true;
     }
     catch (tf2::TransformException &ex) {
@@ -151,7 +150,7 @@ private:
   {
     visualization_msgs::msg::Marker marker;
     marker.header = header;
-    marker.header.frame_id = "map";  
+    marker.header.frame_id = header.frame_id;  
     marker.ns = "scan_filter";
     marker.id = 0;
     marker.type = visualization_msgs::msg::Marker::CYLINDER;
