@@ -25,7 +25,8 @@ def generate_launch_description():
     lifecycle_nodes_localization = ['map_server', 'amcl']
     lifecycle_nodes_nav2 = [
         'controller_server', 'smoother_server', 'planner_server',
-        'behavior_server', 'velocity_smoother', 'bt_navigator', 'waypoint_follower'
+        'behavior_server', 'velocity_smoother', 'bt_navigator',
+        'waypoint_follower', 'collision_monitor', 'route_server'
     ]
     
     # Declare launch arguments
@@ -140,6 +141,24 @@ def generate_launch_description():
         remappings=remappings,
     )
     
+    nav2_collision_monitor = Node(
+        package='nav2_collision_monitor',
+        executable='collision_monitor',
+        name='collision_monitor',
+        output='screen',
+        parameters=[nav2_params_file],
+        remappings=remappings,
+    )
+    
+    nav2_route_server = Node(
+        package='nav2_route',
+        executable='route_server',
+        name='route_server',
+        output='screen',
+        parameters=[nav2_params_file],
+        remappings=remappings,
+    )
+    
     # Lifecycle Manager for Nav2
     nav2_lifecycle_nodes_manager = Node(
         package='nav2_lifecycle_manager',
@@ -157,7 +176,7 @@ def generate_launch_description():
     ld.add_action(declare_autostart_cmd)
 
     # Add nodes to launch
-    # ld.add_action(bring_up)
+    ld.add_action(bring_up)
     ld.add_action(rviz_node)
     ld.add_action(nav2_map_server)
     ld.add_action(nav2_amcl)
@@ -169,6 +188,8 @@ def generate_launch_description():
     ld.add_action(nav2_bt_navigator)
     ld.add_action(nav2_waypoint_follower)
     ld.add_action(nav2_velocity_smoother)
+    ld.add_action(nav2_collision_monitor)
+    # ld.add_action(nav2_route_server)
     ld.add_action(nav2_lifecycle_nodes_manager)
 
     return ld

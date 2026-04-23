@@ -49,14 +49,21 @@ def generate_launch_description():
                       output='screen'
   )
   
+  # ros_gz_bridge = Node(
+  #   package='ros_gz_bridge',
+  #   executable='parameter_bridge',
+  #   arguments=[
+  #     '--ros-args',
+  #     '-p',
+  #     f'config_file:={bridge_params}',
+  #   ],
+  #   output='screen'
+  # )
+
   ros_gz_bridge = Node(
     package='ros_gz_bridge',
     executable='parameter_bridge',
-    arguments=[
-      '--ros-args',
-      '-p',
-      f'config_file:={bridge_params}',
-    ],
+    parameters=[{'config_file': bridge_params}],
     output='screen'
   )
 

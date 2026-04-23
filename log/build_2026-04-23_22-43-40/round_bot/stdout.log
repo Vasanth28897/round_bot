@@ -1,0 +1,67 @@
+-- The C compiler identification is GNU 11.4.0
+-- The CXX compiler identification is GNU 11.4.0
+-- Detecting C compiler ABI info
+-- Detecting C compiler ABI info - done
+-- Check for working C compiler: /usr/bin/cc - skipped
+-- Detecting C compile features
+-- Detecting C compile features - done
+-- Detecting CXX compiler ABI info
+-- Detecting CXX compiler ABI info - done
+-- Check for working CXX compiler: /usr/bin/c++ - skipped
+-- Detecting CXX compile features
+-- Detecting CXX compile features - done
+-- Found ament_cmake: 1.3.14 (/opt/ros/humble/share/ament_cmake/cmake)
+-- Found Python3: /usr/bin/python3 (found version "3.10.12") found components: Interpreter 
+-- Override CMake install command with custom implementation using symlinks instead of copying resources
+-- Found ament_lint_auto: 0.12.15 (/opt/ros/humble/share/ament_lint_auto/cmake)
+-- Configuring done
+-- Generating done
+-- Build files have been written to: /home/vasanth/ros2_ws/src/round_bot/build/round_bot
+-- Install configuration: ""
+-- Execute custom install script
+-- Symlinking: /home/vasanth/ros2_ws/src/round_bot/install/round_bot/share/round_bot/config/gz_bridge.yaml
+-- Symlinking: /home/vasanth/ros2_ws/src/round_bot/install/round_bot/share/round_bot/config/keepout_params.yaml
+-- Symlinking: /home/vasanth/ros2_ws/src/round_bot/install/round_bot/share/round_bot/config/localization.yaml
+-- Symlinking: /home/vasanth/ros2_ws/src/round_bot/install/round_bot/share/round_bot/config/nav2_params.yaml
+-- Symlinking: /home/vasanth/ros2_ws/src/round_bot/install/round_bot/share/round_bot/config/nav2_params_3d.yaml
+-- Symlinking: /home/vasanth/ros2_ws/src/round_bot/install/round_bot/share/round_bot/config/nav2_params_keepout.yaml
+-- Symlinking: /home/vasanth/ros2_ws/src/round_bot/install/round_bot/share/round_bot/config/slam.yaml
+-- Symlinking: /home/vasanth/ros2_ws/src/round_bot/install/round_bot/share/round_bot/description/inertial_xacros.xacro
+-- Symlinking: /home/vasanth/ros2_ws/src/round_bot/install/round_bot/share/round_bot/description/round_bot.sdf
+-- Symlinking: /home/vasanth/ros2_ws/src/round_bot/install/round_bot/share/round_bot/description/round_bot.urdf.xacro
+-- Symlinking: /home/vasanth/ros2_ws/src/round_bot/install/round_bot/share/round_bot/docker/Dockerfile
+-- Symlinking: /home/vasanth/ros2_ws/src/round_bot/install/round_bot/share/round_bot/docker/run_image.sh
+-- Symlinking: /home/vasanth/ros2_ws/src/round_bot/install/round_bot/share/round_bot/graphs/edifice_graph_04_23_2026_22_41_41.geojson
+-- Symlinking: /home/vasanth/ros2_ws/src/round_bot/install/round_bot/share/round_bot/launch/bringup_launch.py
+-- Symlinking: /home/vasanth/ros2_ws/src/round_bot/install/round_bot/share/round_bot/launch/costmap_filter_info.launch.py
+-- Symlinking: /home/vasanth/ros2_ws/src/round_bot/install/round_bot/share/round_bot/launch/navigation_launch.py
+-- Symlinking: /home/vasanth/ros2_ws/src/round_bot/install/round_bot/share/round_bot/launch/slam_launch.py
+-- Symlinking: /home/vasanth/ros2_ws/src/round_bot/install/round_bot/share/round_bot/maps/edifice.pgm
+-- Symlinking: /home/vasanth/ros2_ws/src/round_bot/install/round_bot/share/round_bot/maps/edifice.pgm.aux.xml
+-- Symlinking: /home/vasanth/ros2_ws/src/round_bot/install/round_bot/share/round_bot/maps/edifice.tif
+-- Symlinking: /home/vasanth/ros2_ws/src/round_bot/install/round_bot/share/round_bot/maps/edifice.yaml
+-- Symlinking: /home/vasanth/ros2_ws/src/round_bot/install/round_bot/share/round_bot/maps/edifice_keepout_mask.pgm
+-- Symlinking: /home/vasanth/ros2_ws/src/round_bot/install/round_bot/share/round_bot/maps/edifice_keepout_mask.yaml
+-- Symlinking: /home/vasanth/ros2_ws/src/round_bot/install/round_bot/share/round_bot/rviz/localization.rviz
+-- Symlinking: /home/vasanth/ros2_ws/src/round_bot/install/round_bot/share/round_bot/rviz/navigation.rviz
+-- Symlinking: /home/vasanth/ros2_ws/src/round_bot/install/round_bot/share/round_bot/rviz/slam.rviz
+-- Symlinking: /home/vasanth/ros2_ws/src/round_bot/install/round_bot/share/round_bot/rviz/visualize.rviz
+-- Symlinking: /home/vasanth/ros2_ws/src/round_bot/install/round_bot/share/round_bot/src/round_bot_simple_commander.py
+-- Symlinking: /home/vasanth/ros2_ws/src/round_bot/install/round_bot/share/round_bot/worlds/edifice.sdf
+-- Symlinking: /home/vasanth/ros2_ws/src/round_bot/install/round_bot/share/round_bot/worlds/empty.sdf
+-- Symlinking: /home/vasanth/ros2_ws/src/round_bot/install/round_bot/share/round_bot/worlds/ionic.sdf
+-- Symlinking: /home/vasanth/ros2_ws/src/round_bot/install/round_bot/share/ament_index/resource_index/package_run_dependencies/round_bot
+-- Symlinking: /home/vasanth/ros2_ws/src/round_bot/install/round_bot/share/ament_index/resource_index/parent_prefix_path/round_bot
+-- Symlinking: /home/vasanth/ros2_ws/src/round_bot/install/round_bot/share/round_bot/environment/ament_prefix_path.sh
+-- Symlinking: /home/vasanth/ros2_ws/src/round_bot/install/round_bot/share/round_bot/environment/ament_prefix_path.dsv
+-- Symlinking: /home/vasanth/ros2_ws/src/round_bot/install/round_bot/share/round_bot/environment/path.sh
+-- Symlinking: /home/vasanth/ros2_ws/src/round_bot/install/round_bot/share/round_bot/environment/path.dsv
+-- Symlinking: /home/vasanth/ros2_ws/src/round_bot/install/round_bot/share/round_bot/local_setup.bash
+-- Symlinking: /home/vasanth/ros2_ws/src/round_bot/install/round_bot/share/round_bot/local_setup.sh
+-- Symlinking: /home/vasanth/ros2_ws/src/round_bot/install/round_bot/share/round_bot/local_setup.zsh
+-- Symlinking: /home/vasanth/ros2_ws/src/round_bot/install/round_bot/share/round_bot/local_setup.dsv
+-- Symlinking: /home/vasanth/ros2_ws/src/round_bot/install/round_bot/share/round_bot/package.dsv
+-- Symlinking: /home/vasanth/ros2_ws/src/round_bot/install/round_bot/share/ament_index/resource_index/packages/round_bot
+-- Symlinking: /home/vasanth/ros2_ws/src/round_bot/install/round_bot/share/round_bot/cmake/round_botConfig.cmake
+-- Symlinking: /home/vasanth/ros2_ws/src/round_bot/install/round_bot/share/round_bot/cmake/round_botConfig-version.cmake
+-- Symlinking: /home/vasanth/ros2_ws/src/round_bot/install/round_bot/share/round_bot/package.xml

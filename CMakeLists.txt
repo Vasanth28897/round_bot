@@ -28,6 +28,7 @@ install(
     config
     description
     docker
+    graphs
     launch 
     maps 
     rviz 
