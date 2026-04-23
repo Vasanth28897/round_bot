@@ -1,1 +1,0 @@
-/home/vasanth/ros2_ws/src/round_bot/build/round_bot/ament_cmake_core/round_botConfig-version.cmake

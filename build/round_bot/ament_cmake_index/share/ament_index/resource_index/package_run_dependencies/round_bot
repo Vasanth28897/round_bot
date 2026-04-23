@@ -1,1 +1,0 @@
-rclcpp;rclpy;std_msgs;sensor_msgs;geometry_msgs;visualization_msgs;controller_manager;ros_gz_bridge;ros_gz_image;ros_gz_sim;rviz2;robot_state_publisher;joint_state_publisher;xacro;ros2launch;ament_lint_auto;ament_lint_common

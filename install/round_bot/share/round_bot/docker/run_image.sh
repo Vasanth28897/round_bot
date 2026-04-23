@@ -1,1 +1,0 @@
-/home/vasanth/ros2_ws/src/round_bot/docker/run_image.sh
