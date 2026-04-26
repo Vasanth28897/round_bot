@@ -33,6 +33,7 @@ install(
     maps 
     rviz 
     src
+    scripts
     worlds
   DESTINATION 
     share/${PROJECT_NAME}

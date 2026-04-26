@@ -160,4 +160,71 @@ This package contains docker to execute the gazebo harmonic and the robot model(
     ```bash
     ros2 action send_goal /navigate_to_pose nav2_msgs/action/NavigateToPose "{pose: {header: {stamp: {sec: 0, nanosec: 0}, frame_id: 'map'}, pose: {position: {x: 3.0, y: 3.0, z: 0.0}, orientation: {x: 0.0, y: 0.0, z: 0.0, w: 1.0}}}}"
     ```
- 
+
+### ROUTE SERVER NAVIGATION with .geojson file
+## Convert pgm to GeoTIFF 
+* Instead of using QGIS georeferencer (which is for real-world GPS coordinates, cannot give gps for indoor), use GDAL to convert your PGM directly to a GeoTIFF using your map's origin and resolution
+
+* Install this gdal 
+
+    ```bash
+    sudo apt install gdal-bin python3-gdal
+    ```
+* convert the pgm to tif with correct transform, this is the conversion calculation with the pgm file we have
+
+    ```
+    origin: [-15.1, -7.92, 0]   # this is lower-left corner
+    resolution: 0.05
+    map size: 602 x 307 pixels
+
+    upper_left_x = -15.1
+    upper_left_y = -7.92 + (307 * 0.05) = -7.92 + 15.35 = 7.43
+
+    lower_right_x = -15.1 + (602 * 0.05) = -15.1 + 30.1 = 15.0
+    lower_right_y = -7.92
+    ```
+
+* Conversion command
+
+    ```bash
+    gdal_translate \
+        -of GTiff \
+        -a_ullr -15.1 7.43 15.0 -7.92 \
+        -a_srs EPSG:3857 \
+        ~/ros2_ws/src/round_bot/maps/edifice.pgm \
+        ~/ros2_ws/src/round_bot/maps/edifice.tif
+    ```
+
+* Open the tif file with QGIS, once the tif file is loaded, you can verify the co-ordinates when you hove over the map in gqis, the coordinates shown at the bottom matches the map coordinates(-15 to 15 in X, -8 to 7 in Y)
+
+    ```bash
+    qgis ~/ros2_ws/src/round_bot/maps/edifice.tif
+    ```
+
+* Then to add the nodes, edges and create a geojson file, follow [this](https://docs.nav2.org/tutorials/docs/route_server_tools/route_graph_generation.html) documentation from ros2. 
+
+* Create a directory named `graphs` under the package and add the directory name in the `CMakelists.txt` file, we need to use the `export_shapefiles.py` from the nav2_route package, to export the .geojson file using `nodes.shp` and `edges.shp` which are created from the qgis. Run this command, after installing the geopandas
+
+    ```bash
+    python3 /opt/ros/humble/share/nav2_route/graphs/scripts/export_shapefiles.py \
+        graphs/edifice_graph \
+        edges.shp \
+        nodes.shp
+    ```
+
+* By default the geojson file creates with date and time. you can keep it or not, upto you.
+
+* Add the .geojson file path in the route_server like this
+
+    ```
+    graph_filepath: "/home/vasanth/ros2_ws/src/round_bot/graphs/edifice_graph.geojson"
+    ```
+
+* In Humble the `navigate_via_route` plugin in BT_navigator is not supported. So i created a python file to execute all the routes from the .geojson file and use navigate_to_pose makes the robot follows all of it. Run this python script along with `navigation.launch.py` file. Or you can make it as a node and run using ros2 run
+
+    ```bash
+    python3 ~/ros2_ws/src/round_bot/scripts/route_graph_patrol.py
+    ```
+
+## NOTE
+* It doesn't matter if you add the route_server pluign in the params file or in the launch file, as long as you have the python file to make the robot follow the route_grah from .geojson file.

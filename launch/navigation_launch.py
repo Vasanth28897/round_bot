@@ -189,7 +189,7 @@ def generate_launch_description():
     ld.add_action(nav2_waypoint_follower)
     ld.add_action(nav2_velocity_smoother)
     ld.add_action(nav2_collision_monitor)
-    # ld.add_action(nav2_route_server)
+    ld.add_action(nav2_route_server)
     ld.add_action(nav2_lifecycle_nodes_manager)
 
     return ld
